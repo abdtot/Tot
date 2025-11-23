@@ -1459,7 +1459,7 @@ body {
                 </div>
                 <div class="nav-label">الطلاب</div>
             </a>
-            <a href="teachers.html" class="nav-item-premium active">
+            <a href="employees.html" class="nav-item-premium active">
                 <div class="nav-icon-premium">
                     <i class="fas fa-chalkboard-teacher"></i>
                 </div>
@@ -1811,7 +1811,7 @@ function renderTeachersList() {
                 <div class="staff-details">
                     <span class="staff-id">${teacher.id}</span>
                     <span class="staff-role role-teacher">${specialtyText}</span>
-                    <span>${teacher.totalSalary.toLocaleString()} ر.س</span>
+                    <span>${teacher.totalSalary.toLocaleString()} ر.ي</span>
                 </div>
             </div>
             <div class="staff-actions">
@@ -1865,7 +1865,7 @@ function renderEmployeesList() {
                 <div class="staff-details">
                     <span class="staff-id">${employee.id}</span>
                     <span class="staff-role role-employee">${positionText}</span>
-                    <span>${employee.monthlySalary.toLocaleString()} ر.س</span>
+                    <span>${employee.monthlySalary.toLocaleString()} ر.ي</span>
                 </div>
             </div>
             <div class="staff-actions">
@@ -1993,12 +1993,12 @@ function editTeacher(index) {
                 
                 <div class="salary-item">
                     <span>سعر الساعة:</span>
-                    <span>${teacher.hourlyRate.toLocaleString()} ر.س</span>
+                    <span>${teacher.hourlyRate.toLocaleString()} ر.ي</span>
                 </div>
                 
                 <div class="salary-item salary-total">
                     <span>إجمالي الراتب:</span>
-                    <span>${teacher.totalSalary.toLocaleString()} ر.س</span>
+                    <span>${teacher.totalSalary.toLocaleString()} ر.ي</span>
                 </div>
             </div>
             
