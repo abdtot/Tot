@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الشؤون المالية - إدارة المعلمين والموظفين</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --primary: #1e40af;
+    --primary-dark: #1e3a8a;
+    --primary-light: #dbeafe;
+    --secondary: #059669;
+    --secondary-dark: #047857;
+    --accent: #f59e0b;
+    --success: #059669;
+    --warning: #d97706;
+    --error: #dc2626;
+    --dark: #1e1b4b;
+    --light: #f0f9ff;
+    --surface: #ffffff;
+    --glass: rgba(255, 255, 255, 0.25);
+    --glass-dark: rgba(255, 255, 255, 0.1);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-light: #64748b;
+    --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+    --gradient-college: linear-gradient(135deg, #1e40af 0%, #059669 100%);
+    --gradient-premium: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #059669 100%);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-glass: 0 8px 32px rgba(30, 64, 175, 0.2);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --radius-xl: 24px;
+    --radius-lg: 20px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', 'El Messiri', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 50%, #dbeafe 100%);
+    color: var(--text-primary);
+    direction: rtl;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* تصميم شريط الحالة المتميز */
+.status-bar {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(20px);
+    position: relative;
+    z-index: 1000;
+}
+
+.status-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    z-index: -1;
+}
+
+/* التطبيق الرئيسي */
+.college-app {
+    max-width: 428px;
+    margin: 0 auto;
+    background: transparent;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* الخلفية الديناميكية */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gradient-college);
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* الهيدر المتميز */
+.college-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 30px 24px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+}
+
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.college-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.logo-text h1 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    background: linear-gradient(45deg, #fff, #dbeafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.college-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.college-text h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(45deg, #fff, #dbeafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.college-text p {
+    font-size: 14px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.college-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* نظام التنقل السريع */
+.quick-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.nav-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 16px 8px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+
+.nav-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-college);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.nav-card:hover::before {
+    opacity: 0.1;
+}
+
+.nav-card:active {
+    transform: scale(0.95);
+}
+
+.nav-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-1 .nav-icon { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.nav-2 .nav-icon { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
+.nav-3 .nav-icon { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+.nav-4 .nav-icon { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+.nav-5 .nav-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
+.nav-6 .nav-icon { background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; }
+.nav-7 .nav-icon { background: linear-gradient(135deg, #6b7280, #4b5563); color: white; }
+.nav-8 .nav-icon { background: linear-gradient(135deg, #1e40af, #3730a3); color: white; }
+
+.nav-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    padding: 0 20px 100px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 32px 0 20px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: var(--gradient-college);
+    border-radius: 2px;
+}
+
+/* لوحة التحكم */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.dashboard-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-college);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-soft);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.card-1 .card-icon { background: #dbeafe; color: var(--primary); }
+.card-2 .card-icon { background: #fecaca; color: var(--error); }
+.card-3 .card-icon { background: #d1fae5; color: var(--success); }
+.card-4 .card-icon { background: #fef3c7; color: var(--warning); }
+
+.card-value {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    background: var(--gradient-college);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.card-trend {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trend-up { color: var(--success); }
+.trend-down { color: var(--error); }
+
+/* قسم الموظفين والمعلمين */
+.staff-section {
+    background: linear-gradient(135deg, #dbeafe 0%, #d1fae5 100%);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 2px solid #dbeafe;
+}
+
+.staff-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.staff-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.staff-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.staff-stat {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.staff-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft);
+}
+
+.staff-stat.teachers {
+    border: 2px solid var(--primary);
+}
+
+.staff-stat.employees {
+    border: 2px solid var(--success);
+}
+
+.staff-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.staff-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* شريط التنقل بين النماذج */
+.form-navigation {
+    display: flex;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-card);
+}
+
+.nav-tab {
+    flex: 1;
+    padding: 12px 16px;
+    text-align: center;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.nav-tab.active {
+    background: var(--gradient-college);
+    color: white;
+    box-shadow: var(--shadow-soft);
+}
+
+/* نماذج الإدخال */
+.form-container {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-title i {
+    color: var(--secondary);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+    cursor: pointer;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* قسم مواد المعلم */
+.teacher-subjects {
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-top: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.subjects-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-subject-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.add-subject-btn:hover {
+    background: var(--primary-dark);
+}
+
+.subject-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 8px;
+    background: white;
+    border-radius: var(--radius-sm);
+    border: 1px solid #e2e8f0;
+}
+
+.subject-info {
+    flex: 1;
+}
+
+.subject-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.subject-hours {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.subject-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.subject-action {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-size: 12px;
+}
+
+.subject-action:hover {
+    background: #e2e8f0;
+}
+
+.subject-action.delete:hover {
+    background: #fecaca;
+    color: var(--error);
+}
+
+/* ملخص الراتب للمعلم */
+.salary-summary {
+    background: #f0fdf4;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-top: 16px;
+    border: 1px solid #bbf7d0;
+}
+
+.salary-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--success);
+}
+
+.salary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dcfce7;
+}
+
+.salary-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.salary-total {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 18px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 2px solid #dcfce7;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--gradient-college);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: var(--text-primary);
+    border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* قوائم الموظفين والمعلمين */
+.staff-lists {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.staff-list {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+.staff-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.staff-item:hover {
+    background: #f8fafc;
+}
+
+.staff-item:last-child {
+    border-bottom: none;
+}
+
+.staff-info {
+    flex: 1;
+}
+
+.staff-name {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.staff-details {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.staff-id {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.staff-role {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.role-teacher {
+    background: #dbeafe;
+    color: var(--primary);
+}
+
+.role-employee {
+    background: #d1fae5;
+    color: var(--success);
+}
+
+.staff-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.action-btn:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.action-btn.edit:hover {
+    background: #dbeafe;
+    color: var(--primary);
+}
+
+.action-btn.delete:hover {
+    background: #fecaca;
+    color: var(--error);
+}
+
+/* شريط التنقل السفلي المتميز */
+.bottom-nav-premium {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    padding: 12px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+    max-width: 380px;
+    width: calc(100% - 40px);
+}
+
+.nav-item-premium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+    flex: 1;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item-premium.active {
+    background: var(--gradient-college);
+    color: white;
+    transform: translateY(-8px);
+}
+
+.nav-item-premium.active .nav-label {
+    color: white;
+}
+
+.nav-icon-premium {
+    font-size: 20px;
+    margin-bottom: 4px;
+    transition: var(--transition-smooth);
+}
+
+.nav-item-premium.active .nav-icon-premium {
+    transform: scale(1.2);
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+/* النوافذ المنبثقة */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--surface);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--shadow-soft);
+    animation: modalFadeIn 0.3s;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--primary-light);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* التكيف مع الشاشات */
+@media (max-width: 428px) {
+    .college-app {
+        max-width: 100%;
+    }
+    
+    .quick-nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .staff-lists {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* تأثيرات الظهور */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* موجات الخلفية */
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff"></path></svg>');
+    background-size: cover;
+    opacity: 0.1;
+}
+</style>
+</head>
+<body>
+    <!-- تأثيرات الخلفية الديناميكية -->
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span>2:45</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="college-app">
+        <!-- الهيدر المتميز -->
+        <div class="college-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="college-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>كلية رواد النهضة</h1>
+                        <p>إدارة المعلمين والموظفين</p>
+                    </div>
+                </div>
+
+                <div class="college-info">
+                    <div class="college-text">
+                        <h1>مرحباً بك 👑</h1>
+                        <p>إدارة الكادر التعليمي والإداري</p>
+                    </div>
+                    <div class="college-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">المعلمون</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">25</div>
+                            <div class="stat-label">الموظفون</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">70</div>
+                            <div class="stat-label">الإجمالي</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التنقل السريع -->
+                <div class="quick-nav">
+                    <a href="financial.html" class="nav-card nav-1 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="nav-label">الحساب المالي</div>
+                    </a>
+                    <a href="students.html" class="nav-card nav-2 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="nav-label">الطلاب</div>
+                    </a>
+                    <a href="teachers.html" class="nav-card nav-3 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="nav-label">المعلمون</div>
+                    </a>
+                    <a href="employees.html" class="nav-card nav-4 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="nav-label">الموظفون</div>
+                    </a>
+                    <a href="reports.html" class="nav-card nav-5 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="nav-label">التقارير</div>
+                    </a>
+                    <a href="salaries.html" class="nav-card nav-6 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="nav-label">الرواتب</div>
+                    </a>
+                    <a href="expenses.html" class="nav-card nav-7 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="nav-label">المصروفات</div>
+                    </a>
+                    <a href="settings.html" class="nav-card nav-8 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="nav-label">الإعدادات</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- لوحة التحكم -->
+            <div class="section-title">لوحة التحكم</div>
+            <div class="dashboard-grid">
+                <div class="dashboard-card card-1 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">45</div>
+                            <div class="card-label">إجمالي المعلمين</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+٣ هذا الشهر</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card card-2 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">25</div>
+                            <div class="card-label">إجمالي الموظفين</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+٢ هذا الشهر</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card card-3 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">350,000</div>
+                            <div class="card-label">إجمالي الرواتب</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+٥٪ عن الشهر الماضي</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card card-4 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">92%</div>
+                            <div class="card-label">نسبة الحضور</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+٢٪ عن الشهر الماضي</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الموظفين والمعلمين -->
+            <div class="staff-section fade-in">
+                <div class="staff-header">
+                    <div class="staff-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <h3 style="color: #1e40af; margin-bottom: 4px;">إحصائيات الكادر</h3>
+                        <p style="color: #475569; font-size: 14px;">آخر تحديث: اليوم</p>
+                    </div>
+                </div>
+                <div class="staff-stats">
+                    <div class="staff-stat teachers" data-type="teachers">
+                        <div class="staff-value">45</div>
+                        <div class="staff-label">المعلمون</div>
+                    </div>
+                    <div class="staff-stat employees" data-type="employees">
+                        <div class="staff-value">25</div>
+                        <div class="staff-label">الموظفون</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شريط التنقل بين النماذج -->
+            <div class="form-navigation fade-in">
+                <div class="nav-tab active" data-tab="teacher-form">نموذج إدخال معلم</div>
+                <div class="nav-tab" data-tab="employee-form">نموذج إدخال موظف</div>
+            </div>
+
+            <!-- نموذج إدخال المعلم -->
+            <div id="teacher-form" class="form-container fade-in">
+                <div class="form-title">
+                    <i class="fas fa-user-plus"></i>
+                    بيانات المعلم الأساسية
+                </div>
+                
+                <form id="teacherForm">
+                    <div class="form-group">
+                        <label class="form-label" for="teacherId">الرقم الوظيفي</label>
+                        <input type="text" id="teacherId" class="form-input" placeholder="أدخل الرقم الوظيفي" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="teacherName">اسم المعلم</label>
+                        <input type="text" id="teacherName" class="form-input" placeholder="أدخل اسم المعلم كاملاً" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="teacherSpecialty">التخصص</label>
+                        <select id="teacherSpecialty" class="form-select" required>
+                            <option value="">اختر التخصص</option>
+                            <option value="math">الرياضيات</option>
+                            <option value="physics">الفيزياء</option>
+                            <option value="chemistry">الكيمياء</option>
+                            <option value="biology">الأحياء</option>
+                            <option value="arabic">اللغة العربية</option>
+                            <option value="english">اللغة الإنجليزية</option>
+                            <option value="history">التاريخ</option>
+                            <option value="geography">الجغرافيا</option>
+                            <option value="computer">علوم الحاسب</option>
+                            <option value="business">إدارة الأعمال</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="hourlyRate">المبلغ المعتمد للساعة</label>
+                            <input type="number" id="hourlyRate" class="form-input" value="100" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="totalHours">إجمالي الساعات في الترم</label>
+                            <input type="number" id="totalHours" class="form-input" value="0" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <!-- قسم مواد المعلم -->
+                    <div class="teacher-subjects">
+                        <div class="subjects-title">
+                            <span>المواد المكلف بها</span>
+                            <button type="button" class="add-subject-btn" id="addSubjectBtn">
+                                <i class="fas fa-plus"></i> إضافة مادة
+                            </button>
+                        </div>
+                        <div id="subjectsList">
+                            <!-- سيتم إضافة المواد هنا ديناميكياً -->
+                        </div>
+                    </div>
+                    
+                    <!-- ملخص الراتب -->
+                    <div class="salary-summary">
+                        <div class="salary-title">ملخص الراتب</div>
+                        
+                        <div class="salary-item">
+                            <span>إجمالي الساعات:</span>
+                            <span id="totalHoursDisplay">0 ساعة</span>
+                        </div>
+                        
+                        <div class="salary-item">
+                            <span>سعر الساعة:</span>
+                            <span id="hourlyRateDisplay">100 ر.س</span>
+                        </div>
+                        
+                        <div class="salary-item salary-total">
+                            <span>إجمالي الراتب:</span>
+                            <span id="totalSalary">0 ر.س</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-save"></i>
+                            حفظ بيانات المعلم
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- نموذج إدخال الموظف -->
+            <div id="employee-form" class="form-container fade-in" style="display: none;">
+                <div class="form-title">
+                    <i class="fas fa-user-plus"></i>
+                    بيانات الموظف الأساسية
+                </div>
+                
+                <form id="employeeForm">
+                    <div class="form-group">
+                        <label class="form-label" for="employeeId">الرقم الوظيفي</label>
+                        <input type="text" id="employeeId" class="form-input" placeholder="أدخل الرقم الوظيفي" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="employeeName">اسم الموظف</label>
+                        <input type="text" id="employeeName" class="form-input" placeholder="أدخل اسم الموظف كاملاً" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="employeePosition">الوظيفة</label>
+                        <select id="employeePosition" class="form-select" required>
+                            <option value="">اختر الوظيفة</option>
+                            <option value="admin">مدير إداري</option>
+                            <option value="accountant">محاسب</option>
+                            <option value="secretary">سكرتير</option>
+                            <option value="receptionist">موظف استقبال</option>
+                            <option value="hr">موارد بشرية</option>
+                            <option value="it">دعم فني</option>
+                            <option value="cleaner">عامل نظافة</option>
+                            <option value="security">أمن</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="monthlySalary">الراتب الشهري</label>
+                        <input type="number" id="monthlySalary" class="form-input" value="5000" min="0" required>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-save"></i>
+                            حفظ بيانات الموظف
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- قوائم الموظفين والمعلمين -->
+            <div class="section-title">قوائم الكادر</div>
+            <div class="staff-lists">
+                <!-- قائمة المعلمين -->
+                <div class="staff-list fade-in">
+                    <div class="list-header">
+                        <h3 style="color: var(--text-primary);">قائمة المعلمين</h3>
+                        <div class="search-box">
+                            <input type="text" class="search-input teacher-search" placeholder="ابحث عن معلم...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="teachersList">
+                        <!-- سيتم تعبئة القائمة ديناميكياً -->
+                    </div>
+                </div>
+
+                <!-- قائمة الموظفين -->
+                <div class="staff-list fade-in">
+                    <div class="list-header">
+                        <h3 style="color: var(--text-primary);">قائمة الموظفين</h3>
+                        <div class="search-box">
+                            <input type="text" class="search-input employee-search" placeholder="ابحث عن موظف...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="employeesList">
+                        <!-- سيتم تعبئة القائمة ديناميكياً -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav-premium">
+            <a href="index.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+            <a href="students.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="nav-label">الطلاب</div>
+            </a>
+            <a href="teachers.html" class="nav-item-premium active">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="nav-label">الكادر</div>
+            </a>
+            <a href="financial.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="nav-label">المالية</div>
+            </a>
+            <a href="settings.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-label">الإعدادات</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة مادة -->
+    <div id="addSubjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إضافة مادة جديدة</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="subjectForm">
+                    <div class="form-group">
+                        <label class="form-label" for="subjectName">اسم المادة</label>
+                        <input type="text" id="subjectName" class="form-input" placeholder="أدخل اسم المادة" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="subjectHours">عدد الساعات الأسبوعية</label>
+                        <input type="number" id="subjectHours" class="form-input" value="3" min="1" max="10" required>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-plus"></i>
+                            إضافة المادة
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل المعلم -->
+    <div id="editTeacherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editTeacherModalTitle">تعديل بيانات المعلم</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="editTeacherModalBody">
+                <!-- سيتم تعبئة المحتوى هنا ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل الموظف -->
+    <div id="editEmployeeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editEmployeeModalTitle">تعديل بيانات الموظف</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="editEmployeeModalBody">
+                <!-- سيتم تعبئة المحتوى هنا ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+// تأثيرات الظهور عند التمرير
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        appearOnScroll.unobserve(entry.target);
+    });
+}, appearOptions);
+
+fadeElements.forEach(element => {
+    appearOnScroll.observe(element);
+});
+
+// تفعيل شريط التنقل
+document.querySelectorAll('.nav-item-premium').forEach(item => {
+    item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item-premium').forEach(i => {
+            i.classList.remove('active');
+        });
+        this.classList.add('active');
+    });
+});
+
+// بيانات المعلمين والموظفين المخزنة محلياً
+let teachers = JSON.parse(localStorage.getItem('teachers')) || [];
+let employees = JSON.parse(localStorage.getItem('employees')) || [];
+
+// تحديث الوقت في شريط الحالة
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ar-EG', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
+    document.querySelector('.status-left span').textContent = timeString;
+}
+
+setInterval(updateTime, 60000);
+updateTime();
+
+// التحكم في شريط التنقل بين النماذج
+document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        const targetTab = this.dataset.tab;
+        
+        // تحديث التبويبات النشطة
+        document.querySelectorAll('.nav-tab').forEach(t => {
+            t.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // إظهار وإخفاء النماذج
+        document.getElementById('teacher-form').style.display = 
+            targetTab === 'teacher-form' ? 'block' : 'none';
+        document.getElementById('employee-form').style.display = 
+            targetTab === 'employee-form' ? 'block' : 'none';
+    });
+});
+
+// إدارة مواد المعلم
+let teacherSubjects = [];
+
+// إضافة مادة جديدة
+document.getElementById('addSubjectBtn').addEventListener('click', function() {
+    document.getElementById('addSubjectModal').style.display = 'block';
+});
+
+// حفظ المادة
+document.getElementById('subjectForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const subjectName = document.getElementById('subjectName').value;
+    const subjectHours = parseInt(document.getElementById('subjectHours').value);
+    
+    // إضافة المادة إلى القائمة
+    teacherSubjects.push({
+        name: subjectName,
+        hours: subjectHours
+    });
+    
+    // تحديث عرض المواد
+    renderSubjectsList();
+    
+    // تحديث إجمالي الساعات والراتب
+    updateTeacherSalary();
+    
+    // إعادة تعيين النموذج وإغلاق النافذة
+    document.getElementById('subjectForm').reset();
+    document.getElementById('addSubjectModal').style.display = 'none';
+});
+
+// عرض قائمة المواد
+function renderSubjectsList() {
+    const subjectsList = document.getElementById('subjectsList');
+    subjectsList.innerHTML = '';
+    
+    if (teacherSubjects.length === 0) {
+        subjectsList.innerHTML = '<p style="text-align: center; padding: 10px; color: var(--text-light);">لا توجد مواد مضافة</p>';
+        return;
+    }
+    
+    teacherSubjects.forEach((subject, index) => {
+        const subjectItem = document.createElement('div');
+        subjectItem.className = 'subject-item';
+        
+        subjectItem.innerHTML = `
+            <div class="subject-info">
+                <div class="subject-name">${subject.name}</div>
+                <div class="subject-hours">${subject.hours} ساعة أسبوعياً</div>
+            </div>
+            <div class="subject-actions">
+                <button class="subject-action delete" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        subjectsList.appendChild(subjectItem);
+    });
+    
+    // إضافة أحداث لحذف المواد
+    document.querySelectorAll('.subject-action.delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            teacherSubjects.splice(index, 1);
+            renderSubjectsList();
+            updateTeacherSalary();
+        });
+    });
+}
+
+// تحديث راتب المعلم
+function updateTeacherSalary() {
+    const hourlyRate = parseInt(document.getElementById('hourlyRate').value) || 0;
+    
+    // حساب إجمالي الساعات من المواد
+    let totalHours = 0;
+    teacherSubjects.forEach(subject => {
+        totalHours += subject.hours * 15; // 15 أسبوع في الترم
+    });
+    
+    // تحديث القيم المعروضة
+    document.getElementById('totalHours').value = totalHours;
+    document.getElementById('totalHoursDisplay').textContent = totalHours + ' ساعة';
+    document.getElementById('hourlyRateDisplay').textContent = hourlyRate.toLocaleString() + ' ر.س';
+    
+    const totalSalary = totalHours * hourlyRate;
+    document.getElementById('totalSalary').textContent = totalSalary.toLocaleString() + ' ر.س';
+    
+    return totalSalary;
+}
+
+// تحديث الراتب عند تغيير سعر الساعة
+document.getElementById('hourlyRate').addEventListener('input', updateTeacherSalary);
+
+// حفظ بيانات المعلم
+document.getElementById('teacherForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const teacherId = document.getElementById('teacherId').value;
+    const teacherName = document.getElementById('teacherName').value;
+    const teacherSpecialty = document.getElementById('teacherSpecialty').value;
+    const hourlyRate = parseInt(document.getElementById('hourlyRate').value) || 0;
+    const totalSalary = updateTeacherSalary();
+    
+    // التحقق من عدم تكرار الرقم الوظيفي
+    const existingTeacher = teachers.find(teacher => teacher.id === teacherId);
+    if (existingTeacher) {
+        alert('الرقم الوظيفي مسجل مسبقاً!');
+        return;
+    }
+    
+    // إنشاء كائن المعلم
+    const teacher = {
+        id: teacherId,
+        name: teacherName,
+        specialty: teacherSpecialty,
+        hourlyRate: hourlyRate,
+        subjects: [...teacherSubjects],
+        totalHours: parseInt(document.getElementById('totalHours').value) || 0,
+        totalSalary: totalSalary,
+        registrationDate: new Date().toISOString().split('T')[0]
+    };
+    
+    // إضافة المعلم إلى القائمة
+    teachers.push(teacher);
+    
+    // حفظ البيانات محلياً
+    localStorage.setItem('teachers', JSON.stringify(teachers));
+    
+    // إعادة تعيين النموذج
+    document.getElementById('teacherForm').reset();
+    teacherSubjects = [];
+    renderSubjectsList();
+    updateTeacherSalary();
+    
+    // تحديث قائمة المعلمين
+    renderTeachersList();
+    
+    // إظهار رسالة نجاح
+    alert('تم حفظ بيانات المعلم بنجاح!');
+});
+
+// حفظ بيانات الموظف
+document.getElementById('employeeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const employeeId = document.getElementById('employeeId').value;
+    const employeeName = document.getElementById('employeeName').value;
+    const employeePosition = document.getElementById('employeePosition').value;
+    const monthlySalary = parseInt(document.getElementById('monthlySalary').value) || 0;
+    
+    // التحقق من عدم تكرار الرقم الوظيفي
+    const existingEmployee = employees.find(employee => employee.id === employeeId);
+    if (existingEmployee) {
+        alert('الرقم الوظيفي مسجل مسبقاً!');
+        return;
+    }
+    
+    // إنشاء كائن الموظف
+    const employee = {
+        id: employeeId,
+        name: employeeName,
+        position: employeePosition,
+        monthlySalary: monthlySalary,
+        registrationDate: new Date().toISOString().split('T')[0]
+    };
+    
+    // إضافة الموظف إلى القائمة
+    employees.push(employee);
+    
+    // حفظ البيانات محلياً
+    localStorage.setItem('employees', JSON.stringify(employees));
+    
+    // إعادة تعيين النموذج
+    document.getElementById('employeeForm').reset();
+    
+    // تحديث قائمة الموظفين
+    renderEmployeesList();
+    
+    // إظهار رسالة نجاح
+    alert('تم حفظ بيانات الموظف بنجاح!');
+});
+
+// عرض قائمة المعلمين
+function renderTeachersList() {
+    const teachersList = document.getElementById('teachersList');
+    teachersList.innerHTML = '';
+    
+    if (teachers.length === 0) {
+        teachersList.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--text-light);">لا توجد معلمين مسجلين</p>';
+        return;
+    }
+    
+    teachers.forEach((teacher, index) => {
+        const teacherItem = document.createElement('div');
+        teacherItem.className = 'staff-item';
+        
+        const specialtyText = getSpecialtyText(teacher.specialty);
+        
+        teacherItem.innerHTML = `
+            <div class="staff-info">
+                <div class="staff-name">${teacher.name}</div>
+                <div class="staff-details">
+                    <span class="staff-id">${teacher.id}</span>
+                    <span class="staff-role role-teacher">${specialtyText}</span>
+                    <span>${teacher.totalSalary.toLocaleString()} ر.س</span>
+                </div>
+            </div>
+            <div class="staff-actions">
+                <button class="action-btn edit" data-index="${index}">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        teachersList.appendChild(teacherItem);
+    });
+    
+    // إضافة أحداث للأزرار
+    document.querySelectorAll('.staff-item .action-btn.edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            editTeacher(index);
+        });
+    });
+    
+    document.querySelectorAll('.staff-item .action-btn.delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            deleteTeacher(index);
+        });
+    });
+}
+
+// عرض قائمة الموظفين
+function renderEmployeesList() {
+    const employeesList = document.getElementById('employeesList');
+    employeesList.innerHTML = '';
+    
+    if (employees.length === 0) {
+        employeesList.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--text-light);">لا توجد موظفين مسجلين</p>';
+        return;
+    }
+    
+    employees.forEach((employee, index) => {
+        const employeeItem = document.createElement('div');
+        employeeItem.className = 'staff-item';
+        
+        const positionText = getPositionText(employee.position);
+        
+        employeeItem.innerHTML = `
+            <div class="staff-info">
+                <div class="staff-name">${employee.name}</div>
+                <div class="staff-details">
+                    <span class="staff-id">${employee.id}</span>
+                    <span class="staff-role role-employee">${positionText}</span>
+                    <span>${employee.monthlySalary.toLocaleString()} ر.س</span>
+                </div>
+            </div>
+            <div class="staff-actions">
+                <button class="action-btn edit" data-index="${index}">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        employeesList.appendChild(employeeItem);
+    });
+    
+    // إضافة أحداث للأزرار
+    document.querySelectorAll('.staff-item .action-btn.edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            editEmployee(index);
+        });
+    });
+    
+    document.querySelectorAll('.staff-item .action-btn.delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            deleteEmployee(index);
+        });
+    });
+}
+
+// الحصول على نص التخصص
+function getSpecialtyText(specialty) {
+    const specialties = {
+        'math': 'الرياضيات',
+        'physics': 'الفيزياء',
+        'chemistry': 'الكيمياء',
+        'biology': 'الأحياء',
+        'arabic': 'اللغة العربية',
+        'english': 'اللغة الإنجليزية',
+        'history': 'التاريخ',
+        'geography': 'الجغرافيا',
+        'computer': 'علوم الحاسب',
+        'business': 'إدارة الأعمال'
+    };
+    
+    return specialties[specialty] || specialty;
+}
+
+// الحصول على نص الوظيفة
+function getPositionText(position) {
+    const positions = {
+        'admin': 'مدير إداري',
+        'accountant': 'محاسب',
+        'secretary': 'سكرتير',
+        'receptionist': 'موظف استقبال',
+        'hr': 'موارد بشرية',
+        'it': 'دعم فني',
+        'cleaner': 'عامل نظافة',
+        'security': 'أمن'
+    };
+    
+    return positions[position] || position;
+}
+
+// تعديل بيانات المعلم
+function editTeacher(index) {
+    const teacher = teachers[index];
+    const modalTitle = document.getElementById('editTeacherModalTitle');
+    const modalBody = document.getElementById('editTeacherModalBody');
+    
+    modalTitle.textContent = `تعديل بيانات المعلم: ${teacher.name}`;
+    
+    const specialtyText = getSpecialtyText(teacher.specialty);
+    
+    modalBody.innerHTML = `
+        <form id="editTeacherForm">
+            <input type="hidden" id="editTeacherIndex" value="${index}">
+            
+            <div class="form-group">
+                <label class="form-label" for="editTeacherId">الرقم الوظيفي</label>
+                <input type="text" id="editTeacherId" class="form-input" value="${teacher.id}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editTeacherName">اسم المعلم</label>
+                <input type="text" id="editTeacherName" class="form-input" value="${teacher.name}" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editTeacherSpecialty">التخصص</label>
+                <select id="editTeacherSpecialty" class="form-select" required>
+                    <option value="math" ${teacher.specialty === 'math' ? 'selected' : ''}>الرياضيات</option>
+                    <option value="physics" ${teacher.specialty === 'physics' ? 'selected' : ''}>الفيزياء</option>
+                    <option value="chemistry" ${teacher.specialty === 'chemistry' ? 'selected' : ''}>الكيمياء</option>
+                    <option value="biology" ${teacher.specialty === 'biology' ? 'selected' : ''}>الأحياء</option>
+                    <option value="arabic" ${teacher.specialty === 'arabic' ? 'selected' : ''}>اللغة العربية</option>
+                    <option value="english" ${teacher.specialty === 'english' ? 'selected' : ''}>اللغة الإنجليزية</option>
+                    <option value="history" ${teacher.specialty === 'history' ? 'selected' : ''}>التاريخ</option>
+                    <option value="geography" ${teacher.specialty === 'geography' ? 'selected' : ''}>الجغرافيا</option>
+                    <option value="computer" ${teacher.specialty === 'computer' ? 'selected' : ''}>علوم الحاسب</option>
+                    <option value="business" ${teacher.specialty === 'business' ? 'selected' : ''}>إدارة الأعمال</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="editHourlyRate">المبلغ المعتمد للساعة</label>
+                    <input type="number" id="editHourlyRate" class="form-input" value="${teacher.hourlyRate}" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="editTotalHours">إجمالي الساعات في الترم</label>
+                    <input type="number" id="editTotalHours" class="form-input" value="${teacher.totalHours}" min="0" readonly>
+                </div>
+            </div>
+            
+            <div class="salary-summary">
+                <div class="salary-title">ملخص الراتب</div>
+                
+                <div class="salary-item">
+                    <span>إجمالي الساعات:</span>
+                    <span>${teacher.totalHours} ساعة</span>
+                </div>
+                
+                <div class="salary-item">
+                    <span>سعر الساعة:</span>
+                    <span>${teacher.hourlyRate.toLocaleString()} ر.س</span>
+                </div>
+                
+                <div class="salary-item salary-total">
+                    <span>إجمالي الراتب:</span>
+                    <span>${teacher.totalSalary.toLocaleString()} ر.س</span>
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-save"></i>
+                    حفظ التعديلات
+                </button>
+            </div>
+        </form>
+    `;
+    
+    // إضافة حدث لحفظ التعديلات
+    document.getElementById('editTeacherForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveTeacherEdit(index);
+    });
+    
+    // عرض النافذة المنبثقة
+    document.getElementById('editTeacherModal').style.display = 'block';
+}
+
+// حفظ تعديلات المعلم
+function saveTeacherEdit(index) {
+    const teacher = teachers[index];
+    
+    const teacherName = document.getElementById('editTeacherName').value;
+    const teacherSpecialty = document.getElementById('editTeacherSpecialty').value;
+    const hourlyRate = parseInt(document.getElementById('editHourlyRate').value) || 0;
+    
+    // تحديث بيانات المعلم
+    teacher.name = teacherName;
+    teacher.specialty = teacherSpecialty;
+    teacher.hourlyRate = hourlyRate;
+    teacher.totalSalary = teacher.totalHours * hourlyRate;
+    
+    // حفظ البيانات محلياً
+    localStorage.setItem('teachers', JSON.stringify(teachers));
+    
+    // تحديث قائمة المعلمين
+    renderTeachersList();
+    
+    // إغلاق النافذة المنبثقة
+    document.getElementById('editTeacherModal').style.display = 'none';
+    
+    // إظهار رسالة نجاح
+    alert('تم تحديث بيانات المعلم بنجاح!');
+}
+
+// تعديل بيانات الموظف
+function editEmployee(index) {
+    const employee = employees[index];
+    const modalTitle = document.getElementById('editEmployeeModalTitle');
+    const modalBody = document.getElementById('editEmployeeModalBody');
+    
+    modalTitle.textContent = `تعديل بيانات الموظف: ${employee.name}`;
+    
+    const positionText = getPositionText(employee.position);
+    
+    modalBody.innerHTML = `
+        <form id="editEmployeeForm">
+            <input type="hidden" id="editEmployeeIndex" value="${index}">
+            
+            <div class="form-group">
+                <label class="form-label" for="editEmployeeId">الرقم الوظيفي</label>
+                <input type="text" id="editEmployeeId" class="form-input" value="${employee.id}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editEmployeeName">اسم الموظف</label>
+                <input type="text" id="editEmployeeName" class="form-input" value="${employee.name}" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editEmployeePosition">الوظيفة</label>
+                <select id="editEmployeePosition" class="form-select" required>
+                    <option value="admin" ${employee.position === 'admin' ? 'selected' : ''}>مدير إداري</option>
+                    <option value="accountant" ${employee.position === 'accountant' ? 'selected' : ''}>محاسب</option>
+                    <option value="secretary" ${employee.position === 'secretary' ? 'selected' : ''}>سكرتير</option>
+                    <option value="receptionist" ${employee.position === 'receptionist' ? 'selected' : ''}>موظف استقبال</option>
+                    <option value="hr" ${employee.position === 'hr' ? 'selected' : ''}>موارد بشرية</option>
+                    <option value="it" ${employee.position === 'it' ? 'selected' : ''}>دعم فني</option>
+                    <option value="cleaner" ${employee.position === 'cleaner' ? 'selected' : ''}>عامل نظافة</option>
+                    <option value="security" ${employee.position === 'security' ? 'selected' : ''}>أمن</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editMonthlySalary">الراتب الشهري</label>
+                <input type="number" id="editMonthlySalary" class="form-input" value="${employee.monthlySalary}" min="0" required>
+            </div>
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-save"></i>
+                    حفظ التعديلات
+                </button>
+            </div>
+        </form>
+    `;
+    
+    // إضافة حدث لحفظ التعديلات
+    document.getElementById('editEmployeeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveEmployeeEdit(index);
+    });
+    
+    // عرض النافذة المنبثقة
+    document.getElementById('editEmployeeModal').style.display = 'block';
+}
+
+// حفظ تعديلات الموظف
+function saveEmployeeEdit(index) {
+    const employee = employees[index];
+    
+    const employeeName = document.getElementById('editEmployeeName').value;
+    const employeePosition = document.getElementById('editEmployeePosition').value;
+    const monthlySalary = parseInt(document.getElementById('editMonthlySalary').value) || 0;
+    
+    // تحديث بيانات الموظف
+    employee.name = employeeName;
+    employee.position = employeePosition;
+    employee.monthlySalary = monthlySalary;
+    
+    // حفظ البيانات محلياً
+    localStorage.setItem('employees', JSON.stringify(employees));
+    
+    // تحديث قائمة الموظفين
+    renderEmployeesList();
+    
+    // إغلاق النافذة المنبثقة
+    document.getElementById('editEmployeeModal').style.display = 'none';
+    
+    // إظهار رسالة نجاح
+    alert('تم تحديث بيانات الموظف بنجاح!');
+}
+
+// حذف المعلم
+function deleteTeacher(index) {
+    if (confirm('هل أنت متأكد من حذف هذا المعلم؟')) {
+        teachers.splice(index, 1);
+        localStorage.setItem('teachers', JSON.stringify(teachers));
+        renderTeachersList();
+        alert('تم حذف المعلم بنجاح!');
+    }
+}
+
+// حذف الموظف
+function deleteEmployee(index) {
+    if (confirm('هل أنت متأكد من حذف هذا الموظف؟')) {
+        employees.splice(index, 1);
+        localStorage.setItem('employees', JSON.stringify(employees));
+        renderEmployeesList();
+        alert('تم حذف الموظف بنجاح!');
+    }
+}
+
+// البحث عن المعلمين
+document.querySelector('.teacher-search').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const teacherItems = document.querySelectorAll('#teachersList .staff-item');
+    
+    teacherItems.forEach(item => {
+        const teacherName = item.querySelector('.staff-name').textContent.toLowerCase();
+        const teacherId = item.querySelector('.staff-id').textContent.toLowerCase();
+        
+        if (teacherName.includes(searchTerm) || teacherId.includes(searchTerm)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
+
+// البحث عن الموظفين
+document.querySelector('.employee-search').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const employeeItems = document.querySelectorAll('#employeesList .staff-item');
+    
+    employeeItems.forEach(item => {
+        const employeeName = item.querySelector('.staff-name').textContent.toLowerCase();
+        const employeeId = item.querySelector('.staff-id').textContent.toLowerCase();
+        
+        if (employeeName.includes(searchTerm) || employeeId.includes(searchTerm)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
+
+// التحكم في النوافذ المنبثقة
+const addSubjectModal = document.getElementById('addSubjectModal');
+const editTeacherModal = document.getElementById('editTeacherModal');
+const editEmployeeModal = document.getElementById('editEmployeeModal');
+
+// إغلاق النوافذ عند النقر على X
+document.querySelectorAll('.close').forEach(closeBtn => {
+    closeBtn.addEventListener('click', function() {
+        this.closest('.modal').style.display = 'none';
+    });
+});
+
+// إغلاق النوافذ عند النقر خارجها
+window.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+});
+
+// تفاعلية قسم إحصائيات الكادر
+document.querySelectorAll('.staff-stat').forEach(stat => {
+    stat.addEventListener('click', function() {
+        const type = this.dataset.type;
+        filterStaffByType(type);
+    });
+});
+
+function filterStaffByType(type) {
+    const teacherItems = document.querySelectorAll('#teachersList .staff-item');
+    const employeeItems = document.querySelectorAll('#employeesList .staff-item');
+    
+    if (type === 'teachers') {
+        teacherItems.forEach(item => item.style.display = 'flex');
+        employeeItems.forEach(item => item.style.display = 'none');
+    } else {
+        teacherItems.forEach(item => item.style.display = 'none');
+        employeeItems.forEach(item => item.style.display = 'flex');
+    }
+}
+
+// تأثيرات الأمواج الديناميكية
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const shapes = document.querySelectorAll('.shape');
+    
+    shapes.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.1);
+        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+    });
+});
+
+// تهيئة التطبيق
+document.addEventListener('DOMContentLoaded', function() {
+    renderTeachersList();
+    renderEmployeesList();
+    renderSubjectsList();
+    updateTeacherSalary();
+});
+</script>
+</body>
+</html>

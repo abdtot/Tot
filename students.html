@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الشؤون المالية - كلية رواد النهضة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --primary: #1e40af;
+    --primary-dark: #1e3a8a;
+    --primary-light: #dbeafe;
+    --secondary: #059669;
+    --secondary-dark: #047857;
+    --accent: #f59e0b;
+    --success: #059669;
+    --warning: #d97706;
+    --error: #dc2626;
+    --dark: #1e1b4b;
+    --light: #f0f9ff;
+    --surface: #ffffff;
+    --glass: rgba(255, 255, 255, 0.25);
+    --glass-dark: rgba(255, 255, 255, 0.1);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-light: #64748b;
+    --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+    --gradient-college: linear-gradient(135deg, #1e40af 0%, #059669 100%);
+    --gradient-premium: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #059669 100%);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-glass: 0 8px 32px rgba(30, 64, 175, 0.2);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --radius-xl: 24px;
+    --radius-lg: 20px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', 'El Messiri', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 50%, #dbeafe 100%);
+    color: var(--text-primary);
+    direction: rtl;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* تصميم شريط الحالة المتميز */
+.status-bar {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(20px);
+    position: relative;
+    z-index: 1000;
+}
+
+.status-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    z-index: -1;
+}
+
+/* التطبيق الرئيسي */
+.college-app {
+    max-width: 428px;
+    margin: 0 auto;
+    background: transparent;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* الخلفية الديناميكية */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gradient-college);
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* الهيدر المتميز */
+.college-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 30px 24px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+}
+
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.college-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.college-text h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(45deg, #fff, #dbeafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.college-text p {
+    font-size: 14px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.college-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* نظام التنقل السريع */
+.quick-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.nav-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 16px 8px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+
+.nav-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-college);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.nav-card:hover::before {
+    opacity: 0.1;
+}
+
+.nav-card:active {
+    transform: scale(0.95);
+}
+
+.nav-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-1 .nav-icon { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.nav-2 .nav-icon { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
+.nav-3 .nav-icon { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+.nav-4 .nav-icon { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+.nav-5 .nav-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
+.nav-6 .nav-icon { background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; }
+.nav-7 .nav-icon { background: linear-gradient(135deg, #6b7280, #4b5563); color: white; }
+.nav-8 .nav-icon { background: linear-gradient(135deg, #1e40af, #3730a3); color: white; }
+
+.nav-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    padding: 0 20px 100px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 32px 0 20px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: var(--gradient-college);
+    border-radius: 2px;
+}
+
+/* لوحة التحكم */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.dashboard-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-college);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-soft);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.card-1 .card-icon { background: #dbeafe; color: var(--primary); }
+.card-2 .card-icon { background: #fecaca; color: var(--error); }
+.card-3 .card-icon { background: #d1fae5; color: var(--success); }
+.card-4 .card-icon { background: #fef3c7; color: var(--warning); }
+
+.card-value {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    background: var(--gradient-college);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.card-trend {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trend-up { color: var(--success); }
+.trend-down { color: var(--error); }
+
+/* قسم الطلاب */
+.students-section {
+    background: linear-gradient(135deg, #dbeafe 0%, #d1fae5 100%);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 2px solid #dbeafe;
+}
+
+.students-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.students-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.students-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.students-stat {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.students-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft);
+}
+
+.students-stat.level1 {
+    border: 2px solid var(--primary);
+}
+
+.students-stat.level2 {
+    border: 2px solid var(--success);
+}
+
+.students-stat.level3 {
+    border: 2px solid var(--warning);
+}
+
+.students-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.students-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* نموذج إدخال الطالب */
+.student-form-container {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-title i {
+    color: var(--secondary);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+    cursor: pointer;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.fees-section {
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-top: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.fees-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary);
+}
+
+.fee-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.fee-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.fee-total {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 18px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 2px solid #e2e8f0;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--gradient-college);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: var(--text-primary);
+    border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* قائمة الطلاب */
+.students-list {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+.student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.student-item:hover {
+    background: #f8fafc;
+}
+
+.student-item:last-child {
+    border-bottom: none;
+}
+
+.student-info {
+    flex: 1;
+}
+
+.student-name {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.student-details {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.student-id {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.student-level {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.level-1 {
+    background: #dbeafe;
+    color: var(--primary);
+}
+
+.level-2 {
+    background: #d1fae5;
+    color: var(--success);
+}
+
+.level-3 {
+    background: #fef3c7;
+    color: var(--warning);
+}
+
+.student-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.action-btn:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.action-btn.edit:hover {
+    background: #dbeafe;
+    color: var(--primary);
+}
+
+.action-btn.delete:hover {
+    background: #fecaca;
+    color: var(--error);
+}
+
+/* شريط التنقل السفلي المتميز */
+.bottom-nav-premium {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    padding: 12px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+    max-width: 380px;
+    width: calc(100% - 40px);
+}
+
+.nav-item-premium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+    flex: 1;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item-premium.active {
+    background: var(--gradient-college);
+    color: white;
+    transform: translateY(-8px);
+}
+
+.nav-item-premium.active .nav-label {
+    color: white;
+}
+
+.nav-icon-premium {
+    font-size: 20px;
+    margin-bottom: 4px;
+    transition: var(--transition-smooth);
+}
+
+.nav-item-premium.active .nav-icon-premium {
+    transform: scale(1.2);
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+/* النوافذ المنبثقة */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--surface);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--shadow-soft);
+    animation: modalFadeIn 0.3s;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--primary-light);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* التكيف مع الشاشات */
+@media (max-width: 428px) {
+    .college-app {
+        max-width: 100%;
+    }
+    
+    .quick-nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
+
+/* تأثيرات الظهور */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* موجات الخلفية */
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff"></path></svg>');
+    background-size: cover;
+    opacity: 0.1;
+}
+
+/* شعار الكلية */
+.college-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.logo-text h1 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    background: linear-gradient(45deg, #fff, #dbeafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+</style>
+</head>
+<body>
+    <!-- تأثيرات الخلفية الديناميكية -->
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span>2:45</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="college-app">
+        <!-- الهيدر المتميز -->
+        <div class="college-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="college-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>كلية رواد النهضة</h1>
+                        <p>نظام إدارة الشؤون المالية</p>
+                    </div>
+                </div>
+
+                <div class="college-info">
+                    <div class="college-text">
+                        <h1>مرحباً بك 👑</h1>
+                        <p>إدارة الطلاب والشؤون المالية</p>
+                    </div>
+                    <div class="college-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">350</div>
+                            <div class="stat-label">الطلاب</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">المعلمون</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">25</div>
+                            <div class="stat-label">الموظفون</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التنقل السريع -->
+                <div class="quick-nav">
+                    <a href="financial.html" class="nav-card nav-1 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="nav-label">الحساب المالي</div>
+                    </a>
+                    <a href="students.html" class="nav-card nav-2 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="nav-label">الطلاب</div>
+                    </a>
+                    <a href="employees.html" class="nav-card nav-3 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="nav-label">المعلمون</div>
+                    </a>
+                    <a href="employees.html" class="nav-card nav-4 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="nav-label">الموظفون</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- لوحة التحكم -->
+            <div class="section-title">لوحة التحكم المالية</div>
+            <div class="dashboard-grid">
+                <div class="dashboard-card card-1 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">125,000</div>
+                            <div class="card-label">إجمالي الإيرادات</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+١٥٪ هذا الشهر</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card card-2 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">85,000</div>
+                            <div class="card-label">إجمالي المصروفات</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>-٥٪ هذا الشهر</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card card-3 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">40,000</div>
+                            <div class="card-label">صافي الربح</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+٢٠٪ هذا الشهر</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card card-4 fade-in">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">95%</div>
+                            <div class="card-label">نسبة تحصيل الرسوم</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                    </div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+٣٪ عن الشهر الماضي</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الطلاب -->
+            <div class="students-section fade-in">
+                <div class="students-header">
+                    <div class="students-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h3 style="color: #1e40af; margin-bottom: 4px;">إحصائيات الطلاب</h3>
+                        <p style="color: #475569; font-size: 14px;">آخر تحديث: اليوم</p>
+                    </div>
+                </div>
+                <div class="students-stats">
+                    <div class="students-stat level1" data-level="1">
+                        <div class="students-value">120</div>
+                        <div class="students-label">المستوى الأول</div>
+                    </div>
+                    <div class="students-stat level2" data-level="2">
+                        <div class="students-value">150</div>
+                        <div class="students-label">المستوى الثاني</div>
+                    </div>
+                    <div class="students-stat level3" data-level="3">
+                        <div class="students-value">80</div>
+                        <div class="students-label">المستوى الثالث</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نموذج إدخال الطالب -->
+            <div class="section-title">إدخال طالب جديد</div>
+            <div class="student-form-container fade-in">
+                <div class="form-title">
+                    <i class="fas fa-user-plus"></i>
+                    بيانات الطالب الأساسية
+                </div>
+                
+                <form id="studentForm">
+                    <div class="form-group">
+                        <label class="form-label" for="studentId">الرقم الأكاديمي</label>
+                        <input type="text" id="studentId" class="form-input" placeholder="أدخل الرقم الأكاديمي" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="studentName">اسم الطالب</label>
+                        <input type="text" id="studentName" class="form-input" placeholder="أدخل اسم الطالب كاملاً" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="academicYear">العام الدراسي</label>
+                            <select id="academicYear" class="form-select" required>
+                                <option value="">اختر العام الدراسي</option>
+                                <option value="2023-2024">2023-2024</option>
+                                <option value="2024-2025">2024-2025</option>
+                                <option value="2025-2026">2025-2026</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="studentLevel">المستوى</label>
+                            <select id="studentLevel" class="form-select" required>
+                                <option value="">اختر المستوى</option>
+                                <option value="1">المستوى الأول</option>
+                                <option value="2">المستوى الثاني</option>
+                                <option value="3">المستوى الثالث</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="studentMajor">التخصص</label>
+                        <select id="studentMajor" class="form-select" required>
+                            <option value="">اختر التخصص</option>
+                            <option value="cs">علوم الحاسب</option>
+                            <option value="business">إدارة الأعمال</option>
+                            <option value="engineering">الهندسة</option>
+                            <option value="medicine">الطب</option>
+                            <option value="law">القانون</option>
+                        </select>
+                    </div>
+                    
+                    <div class="fees-section">
+                        <div class="fees-title">الرسوم الدراسية</div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="tuitionFees">رسوم الدراسة السنوية</label>
+                            <input type="number" id="tuitionFees" class="form-input" value="10000" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="cardFees">رسوم البطاقات</label>
+                            <input type="number" id="cardFees" class="form-input" value="200" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="activityFees">رسوم الأنشطة</label>
+                            <input type="number" id="activityFees" class="form-input" value="300" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="otherFees">رسوم أخرى</label>
+                            <input type="number" id="otherFees" class="form-input" value="0" min="0">
+                        </div>
+                        
+                        <div class="fee-item">
+                            <span>إجمالي الرسوم:</span>
+                            <span id="totalFees">10,500 ر.س</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-save"></i>
+                            حفظ بيانات الطالب
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- قائمة الطلاب -->
+            <div class="section-title">قائمة الطلاب</div>
+            <div class="students-list fade-in">
+                <div class="list-header">
+                    <h3 style="color: var(--text-primary);">جميع الطلاب المسجلين</h3>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="ابحث عن طالب...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+                
+                <div id="studentsList">
+                    <!-- سيتم تعبئة القائمة ديناميكياً -->
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav-premium">
+            <a href="index.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+            <a href="students.html" class="nav-item-premium active">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="nav-label">الطلاب</div>
+            </a>
+            <a href="financial.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="nav-label">المالية</div>
+            </a>
+            <a href="reports.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="nav-label">التقارير</div>
+            </a>
+            <a href="settings.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-label">الإعدادات</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل الطالب -->
+    <div id="editStudentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editStudentModalTitle">تعديل بيانات الطالب</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="editStudentModalBody">
+                <!-- سيتم تعبئة المحتوى هنا ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+// تأثيرات الظهور عند التمرير
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        appearOnScroll.unobserve(entry.target);
+    });
+}, appearOptions);
+
+fadeElements.forEach(element => {
+    appearOnScroll.observe(element);
+});
+
+// تفعيل شريط التنقل
+document.querySelectorAll('.nav-item-premium').forEach(item => {
+    item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item-premium').forEach(i => {
+            i.classList.remove('active');
+        });
+        this.classList.add('active');
+    });
+});
+
+// بيانات الطلاب المخزنة محلياً
+let students = JSON.parse(localStorage.getItem('students')) || [];
+
+// تحديث الوقت في شريط الحالة
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ar-EG', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
+    document.querySelector('.status-left span').textContent = timeString;
+}
+
+setInterval(updateTime, 60000);
+updateTime();
+
+// حساب إجمالي الرسوم
+function calculateTotalFees() {
+    const tuitionFees = parseInt(document.getElementById('tuitionFees').value) || 0;
+    const cardFees = parseInt(document.getElementById('cardFees').value) || 0;
+    const activityFees = parseInt(document.getElementById('activityFees').value) || 0;
+    const otherFees = parseInt(document.getElementById('otherFees').value) || 0;
+    
+    const total = tuitionFees + cardFees + activityFees + otherFees;
+    document.getElementById('totalFees').textContent = total.toLocaleString() + ' ر.س';
+    
+    return total;
+}
+
+// تحديث إجمالي الرسوم عند تغيير القيم
+document.getElementById('tuitionFees').addEventListener('input', calculateTotalFees);
+document.getElementById('cardFees').addEventListener('input', calculateTotalFees);
+document.getElementById('activityFees').addEventListener('input', calculateTotalFees);
+document.getElementById('otherFees').addEventListener('input', calculateTotalFees);
+
+// تهيئة إجمالي الرسوم عند التحميل
+document.addEventListener('DOMContentLoaded', calculateTotalFees);
+
+// حفظ بيانات الطالب
+document.getElementById('studentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const studentId = document.getElementById('studentId').value;
+    const studentName = document.getElementById('studentName').value;
+    const academicYear = document.getElementById('academicYear').value;
+    const studentLevel = document.getElementById('studentLevel').value;
+    const studentMajor = document.getElementById('studentMajor').value;
+    const tuitionFees = parseInt(document.getElementById('tuitionFees').value) || 0;
+    const cardFees = parseInt(document.getElementById('cardFees').value) || 0;
+    const activityFees = parseInt(document.getElementById('activityFees').value) || 0;
+    const otherFees = parseInt(document.getElementById('otherFees').value) || 0;
+    const totalFees = tuitionFees + cardFees + activityFees + otherFees;
+    
+    // التحقق من عدم تكرار الرقم الأكاديمي
+    const existingStudent = students.find(student => student.id === studentId);
+    if (existingStudent) {
+        alert('الرقم الأكاديمي مسجل مسبقاً!');
+        return;
+    }
+    
+    // إنشاء كائن الطالب
+    const student = {
+        id: studentId,
+        name: studentName,
+        academicYear: academicYear,
+        level: studentLevel,
+        major: studentMajor,
+        tuitionFees: tuitionFees,
+        cardFees: cardFees,
+        activityFees: activityFees,
+        otherFees: otherFees,
+        totalFees: totalFees,
+        paidFees: 0,
+        remainingFees: totalFees,
+        registrationDate: new Date().toISOString().split('T')[0]
+    };
+    
+    // إضافة الطالب إلى القائمة
+    students.push(student);
+    
+    // حفظ البيانات محلياً
+    localStorage.setItem('students', JSON.stringify(students));
+    
+    // إعادة تعيين النموذج
+    document.getElementById('studentForm').reset();
+    calculateTotalFees();
+    
+    // تحديث قائمة الطلاب
+    renderStudentsList();
+    
+    // إظهار رسالة نجاح
+    alert('تم حفظ بيانات الطالب بنجاح!');
+});
+
+// عرض قائمة الطلاب
+function renderStudentsList() {
+    const studentsList = document.getElementById('studentsList');
+    studentsList.innerHTML = '';
+    
+    if (students.length === 0) {
+        studentsList.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--text-light);">لا توجد طلاب مسجلين</p>';
+        return;
+    }
+    
+    students.forEach((student, index) => {
+        const studentItem = document.createElement('div');
+        studentItem.className = 'student-item';
+        
+        const levelClass = `level-${student.level}`;
+        const levelText = student.level === '1' ? 'المستوى الأول' : 
+                         student.level === '2' ? 'المستوى الثاني' : 
+                         'المستوى الثالث';
+        
+        const majorText = student.major === 'cs' ? 'علوم الحاسب' :
+                         student.major === 'business' ? 'إدارة الأعمال' :
+                         student.major === 'engineering' ? 'الهندسة' :
+                         student.major === 'medicine' ? 'الطب' : 'القانون';
+        
+        studentItem.innerHTML = `
+            <div class="student-info">
+                <div class="student-name">${student.name}</div>
+                <div class="student-details">
+                    <span class="student-id">${student.id}</span>
+                    <span class="student-level ${levelClass}">${levelText}</span>
+                    <span>${majorText}</span>
+                </div>
+            </div>
+            <div class="student-actions">
+                <button class="action-btn edit" data-index="${index}">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        studentsList.appendChild(studentItem);
+    });
+    
+    // إضافة أحداث للأزرار
+    document.querySelectorAll('.action-btn.edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            editStudent(index);
+        });
+    });
+    
+    document.querySelectorAll('.action-btn.delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            deleteStudent(index);
+        });
+    });
+}
+
+// تعديل بيانات الطالب
+function editStudent(index) {
+    const student = students[index];
+    const modalTitle = document.getElementById('editStudentModalTitle');
+    const modalBody = document.getElementById('editStudentModalBody');
+    
+    modalTitle.textContent = `تعديل بيانات الطالب: ${student.name}`;
+    
+    const levelText = student.level === '1' ? 'المستوى الأول' : 
+                     student.level === '2' ? 'المستوى الثاني' : 
+                     'المستوى الثالث';
+    
+    const majorText = student.major === 'cs' ? 'علوم الحاسب' :
+                     student.major === 'business' ? 'إدارة الأعمال' :
+                     student.major === 'engineering' ? 'الهندسة' :
+                     student.major === 'medicine' ? 'الطب' : 'القانون';
+    
+    modalBody.innerHTML = `
+        <form id="editStudentForm">
+            <input type="hidden" id="editStudentIndex" value="${index}">
+            
+            <div class="form-group">
+                <label class="form-label" for="editStudentId">الرقم الأكاديمي</label>
+                <input type="text" id="editStudentId" class="form-input" value="${student.id}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editStudentName">اسم الطالب</label>
+                <input type="text" id="editStudentName" class="form-input" value="${student.name}" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="editAcademicYear">العام الدراسي</label>
+                    <select id="editAcademicYear" class="form-select" required>
+                        <option value="2023-2024" ${student.academicYear === '2023-2024' ? 'selected' : ''}>2023-2024</option>
+                        <option value="2024-2025" ${student.academicYear === '2024-2025' ? 'selected' : ''}>2024-2025</option>
+                        <option value="2025-2026" ${student.academicYear === '2025-2026' ? 'selected' : ''}>2025-2026</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="editStudentLevel">المستوى</label>
+                    <select id="editStudentLevel" class="form-select" required>
+                        <option value="1" ${student.level === '1' ? 'selected' : ''}>المستوى الأول</option>
+                        <option value="2" ${student.level === '2' ? 'selected' : ''}>المستوى الثاني</option>
+                        <option value="3" ${student.level === '3' ? 'selected' : ''}>المستوى الثالث</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="editStudentMajor">التخصص</label>
+                <select id="editStudentMajor" class="form-select" required>
+                    <option value="cs" ${student.major === 'cs' ? 'selected' : ''}>علوم الحاسب</option>
+                    <option value="business" ${student.major === 'business' ? 'selected' : ''}>إدارة الأعمال</option>
+                    <option value="engineering" ${student.major === 'engineering' ? 'selected' : ''}>الهندسة</option>
+                    <option value="medicine" ${student.major === 'medicine' ? 'selected' : ''}>الطب</option>
+                    <option value="law" ${student.major === 'law' ? 'selected' : ''}>القانون</option>
+                </select>
+            </div>
+            
+            <div class="fees-section">
+                <div class="fees-title">الرسوم الدراسية</div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="editTuitionFees">رسوم الدراسة السنوية</label>
+                    <input type="number" id="editTuitionFees" class="form-input" value="${student.tuitionFees}" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="editCardFees">رسوم البطاقات</label>
+                    <input type="number" id="editCardFees" class="form-input" value="${student.cardFees}" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="editActivityFees">رسوم الأنشطة</label>
+                    <input type="number" id="editActivityFees" class="form-input" value="${student.activityFees}" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="editOtherFees">رسوم أخرى</label>
+                    <input type="number" id="editOtherFees" class="form-input" value="${student.otherFees}" min="0">
+                </div>
+                
+                <div class="fee-item">
+                    <span>إجمالي الرسوم:</span>
+                    <span id="editTotalFees">${student.totalFees.toLocaleString()} ر.س</span>
+                </div>
+                
+                <div class="fee-item">
+                    <span>المبلغ المدفوع:</span>
+                    <span>${student.paidFees.toLocaleString()} ر.س</span>
+                </div>
+                
+                <div class="fee-item fee-total">
+                    <span>المبلغ المتبقي:</span>
+                    <span>${student.remainingFees.toLocaleString()} ر.س</span>
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-save"></i>
+                    حفظ التعديلات
+                </button>
+            </div>
+        </form>
+    `;
+    
+    // إضافة حدث لحساب إجمالي الرسوم
+    document.getElementById('editTuitionFees').addEventListener('input', updateEditTotalFees);
+    document.getElementById('editCardFees').addEventListener('input', updateEditTotalFees);
+    document.getElementById('editActivityFees').addEventListener('input', updateEditTotalFees);
+    document.getElementById('editOtherFees').addEventListener('input', updateEditTotalFees);
+    
+    // إضافة حدث لحفظ التعديلات
+    document.getElementById('editStudentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveStudentEdit(index);
+    });
+    
+    // عرض النافذة المنبثقة
+    document.getElementById('editStudentModal').style.display = 'block';
+}
+
+// تحديث إجمالي الرسوم في نموذج التعديل
+function updateEditTotalFees() {
+    const tuitionFees = parseInt(document.getElementById('editTuitionFees').value) || 0;
+    const cardFees = parseInt(document.getElementById('editCardFees').value) || 0;
+    const activityFees = parseInt(document.getElementById('editActivityFees').value) || 0;
+    const otherFees = parseInt(document.getElementById('editOtherFees').value) || 0;
+    
+    const total = tuitionFees + cardFees + activityFees + otherFees;
+    document.getElementById('editTotalFees').textContent = total.toLocaleString() + ' ر.س';
+}
+
+// حفظ تعديلات الطالب
+function saveStudentEdit(index) {
+    const student = students[index];
+    
+    const studentName = document.getElementById('editStudentName').value;
+    const academicYear = document.getElementById('editAcademicYear').value;
+    const studentLevel = document.getElementById('editStudentLevel').value;
+    const studentMajor = document.getElementById('editStudentMajor').value;
+    const tuitionFees = parseInt(document.getElementById('editTuitionFees').value) || 0;
+    const cardFees = parseInt(document.getElementById('editCardFees').value) || 0;
+    const activityFees = parseInt(document.getElementById('editActivityFees').value) || 0;
+    const otherFees = parseInt(document.getElementById('editOtherFees').value) || 0;
+    const totalFees = tuitionFees + cardFees + activityFees + otherFees;
+    
+    // تحديث بيانات الطالب
+    student.name = studentName;
+    student.academicYear = academicYear;
+    student.level = studentLevel;
+    student.major = studentMajor;
+    student.tuitionFees = tuitionFees;
+    student.cardFees = cardFees;
+    student.activityFees = activityFees;
+    student.otherFees = otherFees;
+    student.totalFees = totalFees;
+    student.remainingFees = totalFees - student.paidFees;
+    
+    // حفظ البيانات محلياً
+    localStorage.setItem('students', JSON.stringify(students));
+    
+    // تحديث قائمة الطلاب
+    renderStudentsList();
+    
+    // إغلاق النافذة المنبثقة
+    document.getElementById('editStudentModal').style.display = 'none';
+    
+    // إظهار رسالة نجاح
+    alert('تم تحديث بيانات الطالب بنجاح!');
+}
+
+// حذف الطالب
+function deleteStudent(index) {
+    if (confirm('هل أنت متأكد من حذف هذا الطالب؟')) {
+        students.splice(index, 1);
+        localStorage.setItem('students', JSON.stringify(students));
+        renderStudentsList();
+        alert('تم حذف الطالب بنجاح!');
+    }
+}
+
+// البحث عن الطلاب
+document.querySelector('.search-input').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const studentItems = document.querySelectorAll('.student-item');
+    
+    studentItems.forEach(item => {
+        const studentName = item.querySelector('.student-name').textContent.toLowerCase();
+        const studentId = item.querySelector('.student-id').textContent.toLowerCase();
+        
+        if (studentName.includes(searchTerm) || studentId.includes(searchTerm)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
+
+// التحكم في النوافذ المنبثقة
+const editStudentModal = document.getElementById('editStudentModal');
+
+// إغلاق النوافذ عند النقر على X
+document.querySelectorAll('.close').forEach(closeBtn => {
+    closeBtn.addEventListener('click', function() {
+        this.closest('.modal').style.display = 'none';
+    });
+});
+
+// إغلاق النوافذ عند النقر خارجها
+window.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+});
+
+// تفاعلية قسم إحصائيات الطلاب
+document.querySelectorAll('.students-stat').forEach(stat => {
+    stat.addEventListener('click', function() {
+        const level = this.dataset.level;
+        filterStudentsByLevel(level);
+    });
+});
+
+function filterStudentsByLevel(level) {
+    const studentItems = document.querySelectorAll('.student-item');
+    
+    studentItems.forEach(item => {
+        const studentLevel = item.querySelector('.student-level').textContent;
+        const levelText = level === '1' ? 'المستوى الأول' : 
+                         level === '2' ? 'المستوى الثاني' : 
+                         'المستوى الثالث';
+        
+        if (studentLevel === levelText) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// تأثيرات الأمواج الديناميكية
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const shapes = document.querySelectorAll('.shape');
+    
+    shapes.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.1);
+        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+    });
+});
+
+// تهيئة التطبيق
+document.addEventListener('DOMContentLoaded', function() {
+    renderStudentsList();
+});
+</script>
+</body>
+</html>tion() {
+        const level = this.dataset.level;
+        filterStudentsByLevel(level);
+    });
+});
+
+function filterStudentsByLevel(level) {
+    const studentItems = document.querySelectorAll('.student-item');
+    
+    studentItems.forEach(item => {
+        const studentLevel = item.querySelector('.student-level').textContent;
+        const levelText = level === '1' ? 'المستوى الأول' : 
+                         level === '2' ? 'المستوى الثاني' : 
+                         'المستوى الثالث';
+        
+        if (studentLevel === levelText) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// تأثيرات الأمواج الديناميكية
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const shapes = document.querySelectorAll('.shape');
+    
+    shapes.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.1);
+        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+    });
+});
+
+// تهيئة التطبيق
+document.addEventListener('DOMContentLoaded', function() {
+    renderStudentsList();
+});
+</script>
+</body>
+</html>
