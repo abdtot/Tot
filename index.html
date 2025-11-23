@@ -1,1 +1,2500 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الشؤون المالية - الحساب المالي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --primary: #1e40af;
+    --primary-dark: #1e3a8a;
+    --primary-light: #dbeafe;
+    --secondary: #059669;
+    --secondary-dark: #047857;
+    --accent: #f59e0b;
+    --success: #059669;
+    --warning: #d97706;
+    --error: #dc2626;
+    --dark: #1e1b4b;
+    --light: #f0f9ff;
+    --surface: #ffffff;
+    --glass: rgba(255, 255, 255, 0.25);
+    --glass-dark: rgba(255, 255, 255, 0.1);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-light: #64748b;
+    --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+    --gradient-college: linear-gradient(135deg, #1e40af 0%, #059669 100%);
+    --gradient-premium: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #059669 100%);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-glass: 0 8px 32px rgba(30, 64, 175, 0.2);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --radius-xl: 24px;
+    --radius-lg: 20px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', 'El Messiri', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 50%, #dbeafe 100%);
+    color: var(--text-primary);
+    direction: rtl;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* تصميم شريط الحالة المتميز */
+.status-bar {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(20px);
+    position: relative;
+    z-index: 1000;
+}
+
+.status-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    z-index: -1;
+}
+
+/* التطبيق الرئيسي */
+.college-app {
+    max-width: 428px;
+    margin: 0 auto;
+    background: transparent;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* الخلفية الديناميكية */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gradient-college);
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* الهيدر المتميز */
+.college-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 30px 24px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+}
+
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.college-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.logo-text h1 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    background: linear-gradient(45deg, #fff, #dbeafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.college-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.college-text h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(45deg, #fff, #dbeafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.college-text p {
+    font-size: 14px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.college-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* نظام التنقل السريع */
+.quick-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.nav-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 16px 8px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+
+.nav-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-college);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.nav-card:hover::before {
+    opacity: 0.1;
+}
+
+.nav-card:active {
+    transform: scale(0.95);
+}
+
+.nav-card.active {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-1 .nav-icon { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.nav-2 .nav-icon { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
+.nav-3 .nav-icon { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+.nav-4 .nav-icon { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+.nav-5 .nav-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
+.nav-6 .nav-icon { background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; }
+.nav-7 .nav-icon { background: linear-gradient(135deg, #6b7280, #4b5563); color: white; }
+.nav-8 .nav-icon { background: linear-gradient(135deg, #1e40af, #3730a3); color: white; }
+
+.nav-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    padding: 0 20px 100px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 32px 0 20px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: var(--gradient-college);
+    border-radius: 2px;
+}
+
+/* ملخص الحساب المالي */
+.financial-summary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.summary-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: var(--transition-smooth);
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft);
+}
+
+.summary-card.balance {
+    border-right: 4px solid var(--success);
+}
+
+.summary-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    background: var(--gradient-college);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+.summary-content {
+    flex: 1;
+}
+
+.summary-value {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: var(--gradient-college);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.summary-stat {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: var(--transition-smooth);
+}
+
+.summary-stat:hover {
+    transform: translateY(-3px);
+}
+
+.summary-stat.revenue {
+    border-right: 3px solid var(--success);
+}
+
+.summary-stat.expenses {
+    border-right: 3px solid var(--error);
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.summary-stat.revenue .stat-icon {
+    background: #d1fae5;
+    color: var(--success);
+}
+
+.summary-stat.expenses .stat-icon {
+    background: #fecaca;
+    color: var(--error);
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.summary-stat.revenue .stat-value {
+    color: var(--success);
+}
+
+.summary-stat.expenses .stat-value {
+    color: var(--error);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* الإجراءات السريعة */
+.quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.action-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: 2px solid transparent;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--primary-light);
+}
+
+.action-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.action-content {
+    flex: 1;
+}
+
+.action-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.action-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* نماذج الإدخال */
+.form-container {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 0;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+    display: none;
+}
+
+.form-container.active {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+}
+
+.form-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.form-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition-smooth);
+    background: #f9fafb;
+    font-family: inherit;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    background: white;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+}
+
+.search-result-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.search-result-item:hover {
+    background: #f8fafc;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+/* بطاقات المعلومات */
+.student-info-card, .teacher-info-card {
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+}
+
+.student-header, .teacher-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.student-name, .teacher-name {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.student-id, .teacher-id {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.detail-item.highlight {
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* أقسام المصروفات */
+.expense-details {
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+/* أزرار الإجراءات */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: var(--gradient-college);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: var(--text-primary);
+    border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary-light);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* قائمة الحركات */
+.transactions-list {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.transaction-item:hover {
+    background: #f8fafc;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.transaction-details {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.transaction-amount.positive {
+    color: var(--success);
+}
+
+.transaction-amount.negative {
+    color: var(--error);
+}
+
+.transaction-date {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+/* الإحصائيات الشهرية */
+.monthly-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-chart {
+    height: 80px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.chart-bar {
+    width: 20px;
+    background: var(--gradient-college);
+    border-radius: 4px 4px 0 0;
+    transition: all 0.6s ease-out;
+}
+
+.stat-info {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* شريط التنقل السفلي المتميز */
+.bottom-nav-premium {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    padding: 12px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+    max-width: 380px;
+    width: calc(100% - 40px);
+}
+
+.nav-item-premium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+    flex: 1;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item-premium.active {
+    background: var(--gradient-college);
+    color: white;
+    transform: translateY(-8px);
+}
+
+.nav-item-premium.active .nav-label {
+    color: white;
+}
+
+.nav-icon-premium {
+    font-size: 20px;
+    margin-bottom: 4px;
+    transition: var(--transition-smooth);
+}
+
+.nav-item-premium.active .nav-icon-premium {
+    transform: scale(1.2);
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+/* النوافذ المنبثقة */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--surface);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--shadow-soft);
+    animation: modalFadeIn 0.3s;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-header {
+    background: var(--gradient-college);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* إيصال الطباعة */
+.receipt-content, .voucher-content {
+    max-width: 400px;
+}
+
+.receipt-header, .voucher-header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.receipt-logo, .voucher-logo {
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.receipt-title, .voucher-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.receipt-subtitle, .voucher-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.receipt-body, .voucher-body {
+    padding: 20px;
+}
+
+.receipt-info, .voucher-info {
+    margin-bottom: 20px;
+}
+
+.receipt-row, .voucher-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.receipt-row:last-child, .voucher-row:last-child {
+    border-bottom: none;
+}
+
+.receipt-row.total, .voucher-row.total {
+    font-weight: 700;
+    font-size: 18px;
+    border-top: 2px solid #e2e8f0;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.receipt-footer, .voucher-footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #e2e8f0;
+    margin-top: 20px;
+}
+
+.signature-area {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.signature-line {
+    width: 200px;
+    border-bottom: 1px solid #000;
+    margin: 0 auto 8px;
+}
+
+.signature-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* التكيف مع الشاشات */
+@media (max-width: 428px) {
+    .college-app {
+        max-width: 100%;
+    }
+    
+    .quick-nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .monthly-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
+
+/* تأثيرات الظهور */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* موجات الخلفية */
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff"></path></svg>');
+    background-size: cover;
+    opacity: 0.1;
+}
+
+/* طباعة */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .modal-content, .modal-content * {
+        visibility: visible;
+    }
+    .modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+    }
+    .modal-header .btn {
+        display: none;
+    }
+}
+</style>
+</head>
+<body>
+    <!-- تأثيرات الخلفية الديناميكية -->
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span id="currentTime">2:45</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="college-app">
+        <!-- الهيدر المتميز -->
+        <div class="college-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="college-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>كلية رواد النهضة</h1>
+                        <p>الحساب المالي والشفافية</p>
+                    </div>
+                </div>
+
+                <div class="college-info">
+                    <div class="college-text">
+                        <h1>مرحباً بك 👑</h1>
+                        <p>إدارة الحسابات المالية</p>
+                    </div>
+                    <div class="college-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalBalance">0</div>
+                            <div class="stat-label">رصيد الحساب</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="monthRevenue">0</div>
+                            <div class="stat-label">إيرادات الشهر</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="monthExpenses">0</div>
+                            <div class="stat-label">مصروفات الشهر</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التنقل السريع -->
+                <div class="quick-nav">
+                    <a href="financial.html" class="nav-card nav-1 fade-in active">
+                        <div class="nav-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="nav-label">الحساب المالي</div>
+                    </a>
+                    <a href="students.html" class="nav-card nav-2 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="nav-label">الطلاب</div>
+                    </a>
+                    <a href="teachers.html" class="nav-card nav-3 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="nav-label">المعلمون</div>
+                    </a>
+                    <a href="employees.html" class="nav-card nav-4 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="nav-label">الموظفون</div>
+                    </a>
+                    <a href="reports.html" class="nav-card nav-5 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="nav-label">التقارير</div>
+                    </a>
+                    <a href="invoices.html" class="nav-card nav-6 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div class="nav-label">الفواتير</div>
+                    </a>
+                    <a href="transactions.html" class="nav-card nav-7 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="nav-label">الحركات</div>
+                    </a>
+                    <a href="settings.html" class="nav-card nav-8 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="nav-label">الإعدادات</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- ملخص الحساب المالي -->
+            <div class="section-title">ملخص الحساب المالي</div>
+            <div class="financial-summary fade-in">
+                <div class="summary-card balance">
+                    <div class="summary-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-value" id="accountBalance">0 ر.س</div>
+                        <div class="summary-label">إجمالي رصيد الحساب</div>
+                    </div>
+                </div>
+                
+                <div class="summary-stats">
+                    <div class="summary-stat revenue">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalRevenue">0 ر.س</div>
+                            <div class="stat-label">إجمالي الإيرادات</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-stat expenses">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalExpenses">0 ر.س</div>
+                            <div class="stat-label">إجمالي المصروفات</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إجراءات سريعة -->
+            <div class="section-title">الإجراءات السريعة</div>
+            <div class="quick-actions fade-in">
+                <div class="action-card" id="addRevenueBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">إدخال إيرادات</div>
+                        <div class="action-desc">رسوم الطلاب والمدفوعات</div>
+                    </div>
+                </div>
+                
+                <div class="action-card" id="addExpenseBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-minus-circle"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">إدخال مصروفات</div>
+                        <div class="action-desc">رواتب ومشتريات ومصاريف</div>
+                    </div>
+                </div>
+                
+                <div class="action-card" id="viewReportsBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">التقارير المالية</div>
+                        <div class="action-desc">تحليل الإيرادات والمصروفات</div>
+                    </div>
+                </div>
+                
+                <div class="action-card" id="viewTransactionsBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">كشف الحساب</div>
+                        <div class="action-desc">جميع الحركات المالية</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نموذج إدخال الإيرادات -->
+            <div class="form-container fade-in" id="revenueFormContainer">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-plus-circle"></i>
+                        إدخال إيرادات - رسوم الطلاب
+                    </div>
+                    <button class="form-close" id="closeRevenueForm">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="revenueForm">
+                    <div class="form-group">
+                        <label class="form-label" for="studentSearch">البحث عن الطالب</label>
+                        <div class="search-container">
+                            <input type="text" id="studentSearch" class="form-input" placeholder="ابحث باسم الطالب أو الرقم الأكاديمي">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                        <div id="studentSearchResults" class="search-results"></div>
+                    </div>
+                    
+                    <div id="studentInfo" class="student-info-card" style="display: none;">
+                        <div class="student-header">
+                            <div class="student-name" id="selectedStudentName"></div>
+                            <div class="student-id" id="selectedStudentId"></div>
+                        </div>
+                        <div class="student-details">
+                            <div class="detail-item">
+                                <span>المستوى:</span>
+                                <span id="selectedStudentLevel"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span>التخصص:</span>
+                                <span id="selectedStudentMajor"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span>إجمالي الرسوم:</span>
+                                <span id="selectedStudentTotalFees"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span>المدفوع:</span>
+                                <span id="selectedStudentPaid"></span>
+                            </div>
+                            <div class="detail-item highlight">
+                                <span>المتبقي:</span>
+                                <span id="selectedStudentRemaining"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="paymentAmount">المبلغ المسدد</label>
+                        <input type="number" id="paymentAmount" class="form-input" placeholder="أدخل المبلغ المسدد" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="paymentDate">تاريخ السداد</label>
+                        <input type="date" id="paymentDate" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="paymentMethod">طريقة السداد</label>
+                        <select id="paymentMethod" class="form-select" required>
+                            <option value="">اختر طريقة السداد</option>
+                            <option value="cash">نقدي</option>
+                            <option value="bank">تحويل بنكي</option>
+                            <option value="card">بطاقة ائتمان</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="paymentNotes">ملاحظات</label>
+                        <textarea id="paymentNotes" class="form-textarea" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="printReceiptBtn" style="display: none;">
+                            <i class="fas fa-print"></i>
+                            طباعة الإيصال
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            حفظ السداد
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- نموذج إدخال المصروفات -->
+            <div class="form-container fade-in" id="expenseFormContainer">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-minus-circle"></i>
+                        إدخال مصروفات
+                    </div>
+                    <button class="form-close" id="closeExpenseForm">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="expenseForm">
+                    <div class="form-group">
+                        <label class="form-label" for="expenseType">نوع المصروف</label>
+                        <select id="expenseType" class="form-select" required>
+                            <option value="">اختر نوع المصروف</option>
+                            <option value="teaching">مقابل تدريس</option>
+                            <option value="electricity">كهرباء</option>
+                            <option value="purchases">مشتريات</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <!-- قسم مقابل التدريس -->
+                    <div id="teachingExpense" class="expense-details" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="teacherSearch">البحث عن المعلم</label>
+                            <div class="search-container">
+                                <input type="text" id="teacherSearch" class="form-input" placeholder="ابحث باسم المعلم">
+                                <i class="fas fa-search search-icon"></i>
+                            </div>
+                            <div id="teacherSearchResults" class="search-results"></div>
+                        </div>
+                        
+                        <div id="teacherInfo" class="teacher-info-card" style="display: none;">
+                            <div class="teacher-header">
+                                <div class="teacher-name" id="selectedTeacherName"></div>
+                                <div class="teacher-id" id="selectedTeacherId"></div>
+                            </div>
+                            <div class="teacher-details">
+                                <div class="detail-item">
+                                    <span>التخصص:</span>
+                                    <span id="selectedTeacherSpecialty"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>سعر الساعة:</span>
+                                    <span id="selectedTeacherHourlyRate"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="teachingHours">عدد الساعات</label>
+                                <input type="number" id="teachingHours" class="form-input" min="1" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="teachingAmount">المبلغ المستحق</label>
+                                <input type="number" id="teachingAmount" class="form-input" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- قسم المصروفات العامة -->
+                    <div id="generalExpense" class="expense-details" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="expenseAmount">المبلغ</label>
+                            <input type="number" id="expenseAmount" class="form-input" placeholder="أدخل المبلغ" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="expenseDescription">وصف المصروف</label>
+                            <textarea id="expenseDescription" class="form-textarea" placeholder="وصف تفصيلي للمصروف"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="expenseDate">تاريخ المصروف</label>
+                        <input type="date" id="expenseDate" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="printVoucherBtn" style="display: none;">
+                            <i class="fas fa-print"></i>
+                            طباعة سند الصرف
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            حفظ المصروف
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- آخر الحركات المالية -->
+            <div class="section-title">آخر الحركات المالية</div>
+            <div class="transactions-list fade-in">
+                <div class="list-header">
+                    <h3>سجل المعاملات</h3>
+                    <button class="btn btn-outline" id="viewAllTransactions">
+                        <i class="fas fa-list"></i>
+                        عرض الكل
+                    </button>
+                </div>
+                
+                <div id="transactionsContainer">
+                    <!-- سيتم تعبئة الحركات هنا ديناميكياً -->
+                </div>
+            </div>
+
+            <!-- الإحصائيات الشهرية -->
+            <div class="section-title">الإحصائيات الشهرية</div>
+            <div class="monthly-stats fade-in">
+                <div class="stat-card">
+                    <div class="stat-chart" id="revenueChart">
+                        <div class="chart-bar" style="height: 70%"></div>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="monthlyRevenue">0 ر.س</div>
+                        <div class="stat-label">إيرادات الشهر</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-chart" id="expensesChart">
+                        <div class="chart-bar" style="height: 50%"></div>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="monthlyExpenses">0 ر.س</div>
+                        <div class="stat-label">مصروفات الشهر</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-chart" id="profitChart">
+                        <div class="chart-bar" style="height: 20%"></div>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="monthlyProfit">0 ر.س</div>
+                        <div class="stat-label">صافي الربح</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav-premium">
+            <a href="index.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+            <a href="students.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="nav-label">الطلاب</div>
+            </a>
+            <a href="teachers.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="nav-label">الكادر</div>
+            </a>
+            <a href="financial.html" class="nav-item-premium active">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="nav-label">المالية</div>
+            </a>
+            <a href="settings.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-label">الإعدادات</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- نافذة طباعة الإيصال -->
+    <div id="receiptModal" class="modal">
+        <div class="modal-content receipt-content">
+            <div class="modal-header">
+                <h2>إيصال سداد</h2>
+                <button class="btn btn-outline" id="printReceipt">
+                    <i class="fas fa-print"></i>
+                    طباعة
+                </button>
+            </div>
+            <div class="modal-body" id="receiptBody">
+                <!-- سيتم تعبئة محتوى الإيصال هنا -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة طباعة سند الصرف -->
+    <div id="voucherModal" class="modal">
+        <div class="modal-content voucher-content">
+            <div class="modal-header">
+                <h2>سند صرف</h2>
+                <button class="btn btn-outline" id="printVoucher">
+                    <i class="fas fa-print"></i>
+                    طباعة
+                </button>
+            </div>
+            <div class="modal-body" id="voucherBody">
+                <!-- سيتم تعبئة محتوى السند هنا -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+// تأثيرات الظهور عند التمرير
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        appearOnScroll.unobserve(entry.target);
+    });
+}, appearOptions);
+
+fadeElements.forEach(element => {
+    appearOnScroll.observe(element);
+});
+
+// بيانات التطبيق
+let financialData = JSON.parse(localStorage.getItem('financialData')) || {
+    balance: 0,
+    transactions: [],
+    students: [],
+    teachers: []
+};
+
+// تهيئة البيانات إذا كانت غير موجودة
+function initializeData() {
+    if (!financialData.balance) {
+        financialData.balance = 0;
+    }
+    if (!financialData.transactions) {
+        financialData.transactions = [];
+    }
+    if (!financialData.students) {
+        // تحميل بيانات الطلاب من localStorage إذا كانت موجودة
+        const studentsData = JSON.parse(localStorage.getItem('students')) || [];
+        financialData.students = studentsData;
+    }
+    if (!financialData.teachers) {
+        // تحميل بيانات المعلمين من localStorage إذا كانت موجودة
+        const teachersData = JSON.parse(localStorage.getItem('teachers')) || [];
+        financialData.teachers = teachersData;
+    }
+    saveFinancialData();
+}
+
+// حفظ البيانات المالية
+function saveFinancialData() {
+    localStorage.setItem('financialData', JSON.stringify(financialData));
+    updateDashboard();
+}
+
+// تحديث لوحة التحكم
+function updateDashboard() {
+    // تحديث الرصيد
+    document.getElementById('totalBalance').textContent = financialData.balance.toLocaleString();
+    document.getElementById('accountBalance').textContent = financialData.balance.toLocaleString() + ' ر.س';
+    
+    // حساب الإيرادات والمصروفات
+    const totalRevenue = financialData.transactions
+        .filter(t => t.type === 'revenue')
+        .reduce((sum, t) => sum + t.amount, 0);
+    
+    const totalExpenses = financialData.transactions
+        .filter(t => t.type === 'expense')
+        .reduce((sum, t) => sum + t.amount, 0);
+    
+    document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString() + ' ر.س';
+    document.getElementById('totalExpenses').textContent = totalExpenses.toLocaleString() + ' ر.س';
+    
+    // تحديث الإحصائيات الشهرية
+    updateMonthlyStats();
+    
+    // تحديث قائمة الحركات
+    updateTransactionsList();
+}
+
+// تحديث الإحصائيات الشهرية
+function updateMonthlyStats() {
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    
+    const monthlyRevenue = financialData.transactions
+        .filter(t => t.type === 'revenue' && 
+                    new Date(t.date).getMonth() === currentMonth &&
+                    new Date(t.date).getFullYear() === currentYear)
+        .reduce((sum, t) => sum + t.amount, 0);
+    
+    const monthlyExpenses = financialData.transactions
+        .filter(t => t.type === 'expense' && 
+                    new Date(t.date).getMonth() === currentMonth &&
+                    new Date(t.date).getFullYear() === currentYear)
+        .reduce((sum, t) => sum + t.amount, 0);
+    
+    const monthlyProfit = monthlyRevenue - monthlyExpenses;
+    
+    document.getElementById('monthlyRevenue').textContent = monthlyRevenue.toLocaleString() + ' ر.س';
+    document.getElementById('monthlyExpenses').textContent = monthlyExpenses.toLocaleString() + ' ر.س';
+    document.getElementById('monthlyProfit').textContent = monthlyProfit.toLocaleString() + ' ر.س';
+    document.getElementById('monthRevenue').textContent = monthlyRevenue.toLocaleString();
+    document.getElementById('monthExpenses').textContent = monthlyExpenses.toLocaleString();
+    
+    // تحديث المخططات
+    updateCharts(monthlyRevenue, monthlyExpenses, monthlyProfit);
+}
+
+// تحديث المخططات
+function updateCharts(revenue, expenses, profit) {
+    const maxValue = Math.max(revenue, expenses, Math.abs(profit));
+    const revenueHeight = maxValue > 0 ? (revenue / maxValue) * 100 : 0;
+    const expensesHeight = maxValue > 0 ? (expenses / maxValue) * 100 : 0;
+    const profitHeight = maxValue > 0 ? (Math.abs(profit) / maxValue) * 100 : 0;
+    
+    document.querySelector('#revenueChart .chart-bar').style.height = revenueHeight + '%';
+    document.querySelector('#expensesChart .chart-bar').style.height = expensesHeight + '%';
+    document.querySelector('#profitChart .chart-bar').style.height = profitHeight + '%';
+}
+
+// تحديث قائمة الحركات
+function updateTransactionsList() {
+    const container = document.getElementById('transactionsContainer');
+    const recentTransactions = financialData.transactions
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 5);
+    
+    if (recentTransactions.length === 0) {
+        container.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--text-light);">لا توجد حركات مالية</p>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    recentTransactions.forEach(transaction => {
+        const transactionItem = document.createElement('div');
+        transactionItem.className = 'transaction-item';
+        
+        const amountClass = transaction.type === 'revenue' ? 'positive' : 'negative';
+        const amountSign = transaction.type === 'revenue' ? '+' : '-';
+        const typeText = transaction.type === 'revenue' ? 'إيراد' : 'مصروف';
+        
+        transactionItem.innerHTML = `
+            <div class="transaction-info">
+                <div class="transaction-title">${transaction.description}</div>
+                <div class="transaction-details">${typeText} - ${transaction.category}</div>
+                <div class="transaction-date">${formatDate(transaction.date)}</div>
+            </div>
+            <div class="transaction-amount ${amountClass}">
+                ${amountSign} ${transaction.amount.toLocaleString()} ر.س
+            </div>
+        `;
+        
+        container.appendChild(transactionItem);
+    });
+}
+
+// تنسيق التاريخ
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+// تحديث الوقت
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ar-EG', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
+    document.getElementById('currentTime').textContent = timeString;
+}
+
+setInterval(updateTime, 60000);
+updateTime();
+
+// إدارة النماذج
+document.getElementById('addRevenueBtn').addEventListener('click', function() {
+    showForm('revenueFormContainer');
+    loadStudentsData();
+});
+
+document.getElementById('addExpenseBtn').addEventListener('click', function() {
+    showForm('expenseFormContainer');
+    loadTeachersData();
+});
+
+document.getElementById('closeRevenueForm').addEventListener('click', function() {
+    hideForm('revenueFormContainer');
+    resetRevenueForm();
+});
+
+document.getElementById('closeExpenseForm').addEventListener('click', function() {
+    hideForm('expenseFormContainer');
+    resetExpenseForm();
+});
+
+function showForm(formId) {
+    document.getElementById(formId).classList.add('active');
+}
+
+function hideForm(formId) {
+    document.getElementById(formId).classList.remove('active');
+}
+
+// تحميل بيانات الطلاب
+function loadStudentsData() {
+    // تحديث بيانات الطلاب من localStorage
+    const studentsData = JSON.parse(localStorage.getItem('students')) || [];
+    financialData.students = studentsData;
+    saveFinancialData();
+}
+
+// تحميل بيانات المعلمين
+function loadTeachersData() {
+    // تحديث بيانات المعلمين من localStorage
+    const teachersData = JSON.parse(localStorage.getItem('teachers')) || [];
+    financialData.teachers = teachersData;
+    saveFinancialData();
+}
+
+// البحث عن الطلاب
+let selectedStudent = null;
+
+document.getElementById('studentSearch').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const resultsContainer = document.getElementById('studentSearchResults');
+    
+    if (searchTerm.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+    }
+    
+    const filteredStudents = financialData.students.filter(student => 
+        student.name.toLowerCase().includes(searchTerm) || 
+        student.id.toLowerCase().includes(searchTerm)
+    );
+    
+    displayStudentResults(filteredStudents, resultsContainer);
+});
+
+function displayStudentResults(students, container) {
+    container.innerHTML = '';
+    
+    if (students.length === 0) {
+        container.innerHTML = '<div class="search-result-item">لا توجد نتائج</div>';
+        container.style.display = 'block';
+        return;
+    }
+    
+    students.forEach(student => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `
+            <div style="font-weight: 600;">${student.name}</div>
+            <div style="font-size: 12px; color: var(--text-secondary);">${student.id} - ${getLevelText(student.level)}</div>
+        `;
+        
+        resultItem.addEventListener('click', function() {
+            selectStudent(student);
+            container.style.display = 'none';
+            document.getElementById('studentSearch').value = student.name;
+        });
+        
+        container.appendChild(resultItem);
+    });
+    
+    container.style.display = 'block';
+}
+
+function selectStudent(student) {
+    selectedStudent = student;
+    
+    document.getElementById('selectedStudentName').textContent = student.name;
+    document.getElementById('selectedStudentId').textContent = student.id;
+    document.getElementById('selectedStudentLevel').textContent = getLevelText(student.level);
+    document.getElementById('selectedStudentMajor').textContent = getMajorText(student.major);
+    document.getElementById('selectedStudentTotalFees').textContent = student.totalFees.toLocaleString() + ' ر.س';
+    document.getElementById('selectedStudentPaid').textContent = (student.paidFees || 0).toLocaleString() + ' ر.س';
+    document.getElementById('selectedStudentRemaining').textContent = (student.totalFees - (student.paidFees || 0)).toLocaleString() + ' ر.س';
+    
+    document.getElementById('studentInfo').style.display = 'block';
+    document.getElementById('printReceiptBtn').style.display = 'inline-flex';
+    
+    // تعيين الحد الأقصى للمبلغ المسدد
+    const remaining = student.totalFees - (student.paidFees || 0);
+    document.getElementById('paymentAmount').max = remaining;
+}
+
+// البحث عن المعلمين
+let selectedTeacher = null;
+
+document.getElementById('teacherSearch').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const resultsContainer = document.getElementById('teacherSearchResults');
+    
+    if (searchTerm.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+    }
+    
+    const filteredTeachers = financialData.teachers.filter(teacher => 
+        teacher.name.toLowerCase().includes(searchTerm) || 
+        teacher.id.toLowerCase().includes(searchTerm)
+    );
+    
+    displayTeacherResults(filteredTeachers, resultsContainer);
+});
+
+function displayTeacherResults(teachers, container) {
+    container.innerHTML = '';
+    
+    if (teachers.length === 0) {
+        container.innerHTML = '<div class="search-result-item">لا توجد نتائج</div>';
+        container.style.display = 'block';
+        return;
+    }
+    
+    teachers.forEach(teacher => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `
+            <div style="font-weight: 600;">${teacher.name}</div>
+            <div style="font-size: 12px; color: var(--text-secondary);">${teacher.id} - ${getSpecialtyText(teacher.specialty)}</div>
+        `;
+        
+        resultItem.addEventListener('click', function() {
+            selectTeacher(teacher);
+            container.style.display = 'none';
+            document.getElementById('teacherSearch').value = teacher.name;
+        });
+        
+        container.appendChild(resultItem);
+    });
+    
+    container.style.display = 'block';
+}
+
+function selectTeacher(teacher) {
+    selectedTeacher = teacher;
+    
+    document.getElementById('selectedTeacherName').textContent = teacher.name;
+    document.getElementById('selectedTeacherId').textContent = teacher.id;
+    document.getElementById('selectedTeacherSpecialty').textContent = getSpecialtyText(teacher.specialty);
+    document.getElementById('selectedTeacherHourlyRate').textContent = teacher.hourlyRate.toLocaleString() + ' ر.س/ساعة';
+    
+    document.getElementById('teacherInfo').style.display = 'block';
+    document.getElementById('printVoucherBtn').style.display = 'inline-flex';
+    
+    // تحديث المبلغ المستحق تلقائياً
+    updateTeachingAmount();
+}
+
+// إدارة أنواع المصروفات
+document.getElementById('expenseType').addEventListener('change', function() {
+    const type = this.value;
+    
+    // إخفاء جميع الأقسام أولاً
+    document.getElementById('teachingExpense').style.display = 'none';
+    document.getElementById('generalExpense').style.display = 'none';
+    
+    // إظهار القسم المناسب
+    if (type === 'teaching') {
+        document.getElementById('teachingExpense').style.display = 'block';
+    } else if (type !== '') {
+        document.getElementById('generalExpense').style.display = 'block';
+    }
+});
+
+// تحديث مبلغ التدريس
+document.getElementById('teachingHours').addEventListener('input', updateTeachingAmount);
+
+function updateTeachingAmount() {
+    if (selectedTeacher) {
+        const hours = parseInt(document.getElementById('teachingHours').value) || 0;
+        const amount = hours * selectedTeacher.hourlyRate;
+        document.getElementById('teachingAmount').value = amount;
+    }
+}
+
+// إرسال نموذج الإيرادات
+document.getElementById('revenueForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    if (!selectedStudent) {
+        alert('يرجى اختيار طالب أولاً');
+        return;
+    }
+    
+    const amount = parseInt(document.getElementById('paymentAmount').value);
+    const date = document.getElementById('paymentDate').value;
+    const method = document.getElementById('paymentMethod').value;
+    const notes = document.getElementById('paymentNotes').value;
+    
+    if (amount <= 0) {
+        alert('يرجى إدخال مبلغ صحيح');
+        return;
+    }
+    
+    // تحديث بيانات الطالب
+    selectedStudent.paidFees = (selectedStudent.paidFees || 0) + amount;
+    
+    // تحديث قائمة الطلاب في localStorage
+    updateStudentInLocalStorage(selectedStudent);
+    
+    // إضافة الحركة المالية
+    const transaction = {
+        id: generateId(),
+        type: 'revenue',
+        amount: amount,
+        date: date,
+        description: `سداد رسوم - ${selectedStudent.name}`,
+        category: 'رسوم طلاب',
+        studentId: selectedStudent.id,
+        paymentMethod: method,
+        notes: notes
+    };
+    
+    financialData.transactions.push(transaction);
+    financialData.balance += amount;
+    
+    saveFinancialData();
+    
+    // إظهار إيصال الطباعة
+    showReceipt(transaction, selectedStudent);
+    
+    // إعادة تعيين النموذج
+    resetRevenueForm();
+    
+    alert('تم حفظ السداد بنجاح!');
+});
+
+// إرسال نموذج المصروفات
+document.getElementById('expenseForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const type = document.getElementById('expenseType').value;
+    const date = document.getElementById('expenseDate').value;
+    
+    let amount = 0;
+    let description = '';
+    let category = '';
+    
+    if (type === 'teaching') {
+        if (!selectedTeacher) {
+            alert('يرجى اختيار معلم أولاً');
+            return;
+        }
+        
+        amount = parseInt(document.getElementById('teachingAmount').value);
+        const hours = parseInt(document.getElementById('teachingHours').value);
+        description = `مقابل تدريس - ${selectedTeacher.name} (${hours} ساعة)`;
+        category = 'رواتب';
+        
+    } else {
+        amount = parseInt(document.getElementById('expenseAmount').value);
+        description = document.getElementById('expenseDescription').value;
+        
+        switch(type) {
+            case 'electricity':
+                category = 'مرافق';
+                description = 'فواتير كهرباء - ' + description;
+                break;
+            case 'purchases':
+                category = 'مشتريات';
+                description = 'مشتريات - ' + description;
+                break;
+            case 'other':
+                category = 'أخرى';
+                description = 'مصروفات أخرى - ' + description;
+                break;
+        }
+    }
+    
+    if (amount <= 0) {
+        alert('يرجى إدخال مبلغ صحيح');
+        return;
+    }
+    
+    if (amount > financialData.balance) {
+        alert('رصيد الحساب غير كافي');
+        return;
+    }
+    
+    // إضافة الحركة المالية
+    const transaction = {
+        id: generateId(),
+        type: 'expense',
+        amount: amount,
+        date: date,
+        description: description,
+        category: category,
+        expenseType: type
+    };
+    
+    if (type === 'teaching') {
+        transaction.teacherId = selectedTeacher.id;
+        transaction.hours = parseInt(document.getElementById('teachingHours').value);
+    } else {
+        transaction.notes = document.getElementById('expenseDescription').value;
+    }
+    
+    financialData.transactions.push(transaction);
+    financialData.balance -= amount;
+    
+    saveFinancialData();
+    
+    // إظهار سند الصرف
+    showVoucher(transaction, selectedTeacher);
+    
+    // إعادة تعيين النموذج
+    resetExpenseForm();
+    
+    alert('تم حفظ المصروف بنجاح!');
+});
+
+// إعادة تعيين نموذج الإيرادات
+function resetRevenueForm() {
+    document.getElementById('revenueForm').reset();
+    document.getElementById('studentInfo').style.display = 'none';
+    document.getElementById('printReceiptBtn').style.display = 'none';
+    selectedStudent = null;
+    
+    // تعيين التاريخ الحالي كقيمة افتراضية
+    document.getElementById('paymentDate').valueAsDate = new Date();
+}
+
+// إعادة تعيين نموذج المصروفات
+function resetExpenseForm() {
+    document.getElementById('expenseForm').reset();
+    document.getElementById('teachingExpense').style.display = 'none';
+    document.getElementById('generalExpense').style.display = 'none';
+    document.getElementById('teacherInfo').style.display = 'none';
+    document.getElementById('printVoucherBtn').style.display = 'none';
+    selectedTeacher = null;
+    
+    // تعيين التاريخ الحالي كقيمة افتراضية
+    document.getElementById('expenseDate').valueAsDate = new Date();
+}
+
+// وظائف المساعدة
+function generateId() {
+    return 'T' + Date.now() + Math.random().toString(36).substr(2, 9);
+}
+
+function getLevelText(level) {
+    const levels = {
+        '1': 'المستوى الأول',
+        '2': 'المستوى الثاني', 
+        '3': 'المستوى الثالث'
+    };
+    return levels[level] || level;
+}
+
+function getMajorText(major) {
+    const majors = {
+        'cs': 'علوم الحاسب',
+        'business': 'إدارة الأعمال',
+        'engineering': 'الهندسة',
+        'medicine': 'الطب',
+        'law': 'القانون'
+    };
+    return majors[major] || major;
+}
+
+function getSpecialtyText(specialty) {
+    const specialties = {
+        'math': 'الرياضيات',
+        'physics': 'الفيزياء',
+        'chemistry': 'الكيمياء',
+        'biology': 'الأحياء',
+        'arabic': 'اللغة العربية',
+        'english': 'اللغة الإنجليزية',
+        'history': 'التاريخ',
+        'geography': 'الجغرافيا',
+        'computer': 'علوم الحاسب',
+        'business': 'إدارة الأعمال'
+    };
+    return specialties[specialty] || specialty;
+}
+
+function updateStudentInLocalStorage(student) {
+    const students = JSON.parse(localStorage.getItem('students')) || [];
+    const index = students.findIndex(s => s.id === student.id);
+    if (index !== -1) {
+        students[index] = student;
+        localStorage.setItem('students', JSON.stringify(students));
+    }
+}
+
+// إظهار إيصال السداد
+function showReceipt(transaction, student) {
+    const receiptBody = document.getElementById('receiptBody');
+    
+    receiptBody.innerHTML = `
+        <div class="receipt-header">
+            <div class="receipt-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="receipt-title">كلية رواد النهضة</div>
+            <div class="receipt-subtitle">إيصال سداد رسمي</div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">
+                رقم الإيصال: ${transaction.id}
+            </div>
+        </div>
+        
+        <div class="receipt-body">
+            <div class="receipt-info">
+                <div class="receipt-row">
+                    <span>اسم الطالب:</span>
+                    <span>${student.name}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>الرقم الأكاديمي:</span>
+                    <span>${student.id}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>المستوى:</span>
+                    <span>${getLevelText(student.level)}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>التخصص:</span>
+                    <span>${getMajorText(student.major)}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>طريقة السداد:</span>
+                    <span>${getPaymentMethodText(transaction.paymentMethod)}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>تاريخ السداد:</span>
+                    <span>${formatDate(transaction.date)}</span>
+                </div>
+                <div class="receipt-row total">
+                    <span>المبلغ المسدد:</span>
+                    <span>${transaction.amount.toLocaleString()} ر.س</span>
+                </div>
+                ${transaction.notes ? `
+                <div class="receipt-row">
+                    <span>ملاحظات:</span>
+                    <span>${transaction.notes}</span>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="receipt-footer">
+                <div class="signature-area">
+                    <div class="signature-line"></div>
+                    <div class="signature-label">توقيع المحاسب</div>
+                </div>
+                <div style="margin-top: 20px; font-size: 12px; color: var(--text-secondary);">
+                    شكراً لثقتكم بكلية رواد النهضة
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('receiptModal').style.display = 'block';
+}
+
+// إظهار سند الصرف
+function showVoucher(transaction, teacher) {
+    const voucherBody = document.getElementById('voucherBody');
+    
+    let details = '';
+    if (transaction.expenseType === 'teaching') {
+        details = `
+            <div class="voucher-row">
+                <span>اسم المعلم:</span>
+                <span>${teacher.name}</span>
+            </div>
+            <div class="voucher-row">
+                <span>الرقم الوظيفي:</span>
+                <span>${teacher.id}</span>
+            </div>
+            <div class="voucher-row">
+                <span>عدد الساعات:</span>
+                <span>${transaction.hours} ساعة</span>
+            </div>
+        `;
+    } else {
+        details = `
+            <div class="voucher-row">
+                <span>وصف المصروف:</span>
+                <span>${transaction.description}</span>
+            </div>
+        `;
+    }
+    
+    voucherBody.innerHTML = `
+        <div class="voucher-header">
+            <div class="voucher-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="voucher-title">كلية رواد النهضة</div>
+            <div class="voucher-subtitle">سند صرف رسمي</div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">
+                رقم السند: ${transaction.id}
+            </div>
+        </div>
+        
+        <div class="voucher-body">
+            <div class="voucher-info">
+                ${details}
+                <div class="voucher-row">
+                    <span>نوع المصروف:</span>
+                    <span>${getExpenseTypeText(transaction.expenseType)}</span>
+                </div>
+                <div class="voucher-row">
+                    <span>التصنيف:</span>
+                    <span>${transaction.category}</span>
+                </div>
+                <div class="voucher-row">
+                    <span>تاريخ الصرف:</span>
+                    <span>${formatDate(transaction.date)}</span>
+                </div>
+                <div class="voucher-row total">
+                    <span>المبلغ المصروف:</span>
+                    <span>${transaction.amount.toLocaleString()} ر.س</span>
+                </div>
+            </div>
+            
+            <div class="voucher-footer">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+                    <div class="signature-area">
+                        <div class="signature-line"></div>
+                        <div class="signature-label">توقيع المحاسب</div>
+                    </div>
+                    <div class="signature-area">
+                        <div class="signature-line"></div>
+                        <div class="signature-label">${transaction.expenseType === 'teaching' ? 'توقيع المعلم' : 'توقيع المستلم'}</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; font-size: 12px; color: var(--text-secondary);">
+                    سند صرف معتمد من إدارة الكلية
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('voucherModal').style.display = 'block';
+}
+
+// وظائف إضافية
+function getPaymentMethodText(method) {
+    const methods = {
+        'cash': 'نقدي',
+        'bank': 'تحويل بنكي',
+        'card': 'بطاقة ائتمان'
+    };
+    return methods[method] || method;
+}
+
+function getExpenseTypeText(type) {
+    const types = {
+        'teaching': 'مقابل تدريس',
+        'electricity': 'كهرباء',
+        'purchases': 'مشتريات',
+        'other': 'أخرى'
+    };
+    return types[type] || type;
+}
+
+// أحداث الطباعة
+document.getElementById('printReceipt').addEventListener('click', function() {
+    window.print();
+});
+
+document.getElementById('printVoucher').addEventListener('click', function() {
+    window.print();
+});
+
+// إغلاق النوافذ المنبثقة
+document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
+});
+
+// عرض جميع الحركات
+document.getElementById('viewAllTransactions').addEventListener('click', function() {
+    alert('سيتم عرض جميع الحركات المالية في صفحة منفصلة');
+    // يمكن توجيه المستخدم إلى صفحة الحركات الكاملة
+});
+
+// تهيئة التطبيق عند التحميل
+document.addEventListener('DOMContentLoaded', function() {
+    initializeData();
+    updateDashboard();
+    
+    // تعيين التواريخ الافتراضية
+    document.getElementById('paymentDate').valueAsDate = new Date();
+    document.getElementById('expenseDate').valueAsDate = new Date();
+    
+    // إخفاء النماذج في البداية
+    hideForm('revenueFormContainer');
+    hideForm('expenseFormContainer');
+});
+
+// تأثيرات الأمواج الديناميكية
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const shapes = document.querySelectorAll('.shape');
+    
+    shapes.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.1);
+        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+    });
+});
+</script>
+</body>
+</html>
