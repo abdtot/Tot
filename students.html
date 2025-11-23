@@ -1234,7 +1234,7 @@ body {
                         
                         <div class="fee-item">
                             <span>إجمالي الرسوم:</span>
-                            <span id="totalFees">10,500 ر.س</span>
+                            <span id="totalFees">10,500 ر.ي</span>
                         </div>
                     </div>
                     
@@ -1368,7 +1368,7 @@ function calculateTotalFees() {
     const otherFees = parseInt(document.getElementById('otherFees').value) || 0;
     
     const total = tuitionFees + cardFees + activityFees + otherFees;
-    document.getElementById('totalFees').textContent = total.toLocaleString() + ' ر.س';
+    document.getElementById('totalFees').textContent = total.toLocaleString() + ' ر.ي';
     
     return total;
 }
@@ -1587,17 +1587,17 @@ function editStudent(index) {
                 
                 <div class="fee-item">
                     <span>إجمالي الرسوم:</span>
-                    <span id="editTotalFees">${student.totalFees.toLocaleString()} ر.س</span>
+                    <span id="editTotalFees">${student.totalFees.toLocaleString()} ر.ي</span>
                 </div>
                 
                 <div class="fee-item">
                     <span>المبلغ المدفوع:</span>
-                    <span>${student.paidFees.toLocaleString()} ر.س</span>
+                    <span>${student.paidFees.toLocaleString()} ر.ي</span>
                 </div>
                 
                 <div class="fee-item fee-total">
                     <span>المبلغ المتبقي:</span>
-                    <span>${student.remainingFees.toLocaleString()} ر.س</span>
+                    <span>${student.remainingFees.toLocaleString()} ر.ي</span>
                 </div>
             </div>
             
