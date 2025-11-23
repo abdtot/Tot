@@ -1762,44 +1762,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </body>
-</html>tion() {
-        const level = this.dataset.level;
-        filterStudentsByLevel(level);
-    });
-});
-
-function filterStudentsByLevel(level) {
-    const studentItems = document.querySelectorAll('.student-item');
-    
-    studentItems.forEach(item => {
-        const studentLevel = item.querySelector('.student-level').textContent;
-        const levelText = level === '1' ? 'المستوى الأول' : 
-                         level === '2' ? 'المستوى الثاني' : 
-                         'المستوى الثالث';
-        
-        if (studentLevel === levelText) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
-
-// تأثيرات الأمواج الديناميكية
-window.addEventListener('scroll', function() {
-    const scrolled = window.pageYOffset;
-    const shapes = document.querySelectorAll('.shape');
-    
-    shapes.forEach((shape, index) => {
-        const speed = 0.5 + (index * 0.1);
-        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
-    });
-});
-
-// تهيئة التطبيق
-document.addEventListener('DOMContentLoaded', function() {
-    renderStudentsList();
-});
-</script>
-</body>
 </html>
