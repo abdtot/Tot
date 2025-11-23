@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الشؤون المالية - كلية رواد النهضة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="financial.css">
+    <style>
+        /* أنماط إضافية للصفحة الرئيسية */
+        .welcome-section {
+            background: var(--gradient-college);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius-xl);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-text h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #fff, #dbeafe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-text p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .date-time {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card-overview {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            transition: var(--transition-smooth);
+            border-left: 4px solid var(--primary);
+        }
+
+        .stat-card-overview:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-card-overview.students {
+            border-left-color: #3b82f6;
+        }
+
+        .stat-card-overview.teachers {
+            border-left-color: #8b5cf6;
+        }
+
+        .stat-card-overview.employees {
+            border-left-color: #f59e0b;
+        }
+
+        .stat-card-overview.financial {
+            border-left-color: #10b981;
+        }
+
+        .stat-icon-overview {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 20px;
+        }
+
+        .stat-card-overview.students .stat-icon-overview {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .stat-card-overview.teachers .stat-icon-overview {
+            background: #e9d5ff;
+            color: #8b5cf6;
+        }
+
+        .stat-card-overview.employees .stat-icon-overview {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .stat-card-overview.financial .stat-icon-overview {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .stat-value-overview {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .stat-label-overview {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .access-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .access-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-soft);
+            border-color: var(--primary-light);
+        }
+
+        .access-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .access-content {
+            flex: 1;
+        }
+
+        .access-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .access-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .recent-activity {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+        }
+
+        .activity-item:hover {
+            background: #f1f5f9;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .activity-icon.revenue {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .activity-icon.expense {
+            background: #fecaca;
+            color: #ef4444;
+        }
+
+        .activity-icon.student {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .activity-icon.teacher {
+            background: #e9d5ff;
+            color: #8b5cf6;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .activity-details {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .financial-overview {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .financial-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .financial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .financial-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .financial-stat {
+            text-align: center;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+        }
+
+        .financial-value {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .financial-value.positive {
+            color: var(--success);
+        }
+
+        .financial-value.negative {
+            color: var(--error);
+        }
+
+        .financial-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .upcoming-events {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            border-right: 3px solid var(--primary);
+        }
+
+        .event-item.urgent {
+            border-right-color: var(--error);
+        }
+
+        .event-date {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            min-width: 50px;
+        }
+
+        .event-date.urgent {
+            background: var(--error);
+        }
+
+        .event-day {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .event-month {
+            font-size: 10px;
+        }
+
+        .event-content {
+            flex: 1;
+        }
+
+        .event-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .event-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 428px) {
+            .stats-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-access {
+                grid-template-columns: 1fr;
+            }
+            
+            .financial-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- تأثيرات الخلفية الديناميكية -->
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span id="currentTime">2:45</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="college-app">
+        <!-- الهيدر المتميز -->
+        <div class="college-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="college-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>كلية رواد النهضة</h1>
+                        <p>نظام إدارة الشؤون المالية</p>
+                    </div>
+                </div>
+
+                <!-- التنقل السريع -->
+                <div class="quick-nav">
+                    <a href="index.html" class="nav-card nav-1 fade-in active">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-label">الرئيسية</div>
+                    </a>
+                    <a href="students.html" class="nav-card nav-2 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="nav-label">الطلاب</div>
+                    </a>
+                    <a href="teachers.html" class="nav-card nav-3 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="nav-label">المعلمون</div>
+                    </a>
+                    <a href="employees.html" class="nav-card nav-4 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="nav-label">الموظفون</div>
+                    </a>
+                    <a href="financial.html" class="nav-card nav-5 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="nav-label">المالية</div>
+                    </a>
+                    <a href="reports.html" class="nav-card nav-6 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="nav-label">التقارير</div>
+                    </a>
+                    <a href="invoices.html" class="nav-card nav-7 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div class="nav-label">الفواتير</div>
+                    </a>
+                    <a href="settings.html" class="nav-card nav-8 fade-in">
+                        <div class="nav-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="nav-label">الإعدادات</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- قسم الترحيب -->
+            <div class="welcome-section fade-in">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h1>مرحباً بك في نظام الإدارة</h1>
+                        <p>نظام متكامل لإدارة الشؤون المالية والطلابية لكلية رواد النهضة</p>
+                    </div>
+                    <div class="date-time">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span id="currentDate">الاثنين ١٢ فبراير ٢٠٢٤</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نظرة عامة على الإحصائيات -->
+            <div class="section-title">نظرة عامة على النظام</div>
+            <div class="stats-overview fade-in">
+                <div class="stat-card-overview students">
+                    <div class="stat-icon-overview">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="stat-value-overview" id="totalStudents">0</div>
+                    <div class="stat-label-overview">إجمالي الطلاب</div>
+                </div>
+
+                <div class="stat-card-overview teachers">
+                    <div class="stat-icon-overview">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-value-overview" id="totalTeachers">0</div>
+                    <div class="stat-label-overview">إجمالي المعلمين</div>
+                </div>
+
+                <div class="stat-card-overview employees">
+                    <div class="stat-icon-overview">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value-overview" id="totalEmployees">0</div>
+                    <div class="stat-label-overview">إجمالي الموظفين</div>
+                </div>
+
+                <div class="stat-card-overview financial">
+                    <div class="stat-icon-overview">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-value-overview" id="totalBalance">0 ر.س</div>
+                    <div class="stat-label-overview">رصيد الحساب</div>
+                </div>
+            </div>
+
+            <!-- الوصول السريع -->
+            <div class="section-title">الوصول السريع</div>
+            <div class="quick-access fade-in">
+                <a href="students.html" class="access-card">
+                    <div class="access-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="access-content">
+                        <div class="access-title">إضافة طالب جديد</div>
+                        <div class="access-desc">تسجيل طالب جديد في النظام</div>
+                    </div>
+                </a>
+
+                <a href="financial.html" class="access-card">
+                    <div class="access-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="access-content">
+                        <div class="access-title">إدخال إيرادات</div>
+                        <div class="access-desc">تسجيل مدفوعات الطلاب</div>
+                    </div>
+                </a>
+
+                <a href="teachers.html" class="access-card">
+                    <div class="access-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="access-content">
+                        <div class="access-title">إضافة معلم جديد</div>
+                        <div class="access-desc">تسجيل معلم جديد في النظام</div>
+                    </div>
+                </a>
+
+                <a href="financial.html" class="access-card">
+                    <div class="access-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="access-content">
+                        <div class="access-title">إدخال مصروفات</div>
+                        <div class="access-desc">تسجيل مصروفات الرواتب والمشتريات</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- النشاط الأخير -->
+            <div class="section-title">النشاط الأخير</div>
+            <div class="recent-activity fade-in">
+                <div class="activity-header">
+                    <h3>أحدث الحركات</h3>
+                    <button class="btn btn-outline" id="viewAllActivity">
+                        <i class="fas fa-list"></i>
+                        عرض الكل
+                    </button>
+                </div>
+                <div class="activity-list" id="activityList">
+                    <!-- سيتم تعبئة النشاط هنا ديناميكياً -->
+                </div>
+            </div>
+
+            <!-- النظرة المالية -->
+            <div class="section-title">النظرة المالية</div>
+            <div class="financial-overview fade-in">
+                <div class="financial-card">
+                    <div class="financial-header">
+                        <h3>الأداء المالي لهذا الشهر</h3>
+                        <span id="currentMonth">فبراير 2024</span>
+                    </div>
+                    <div class="financial-stats">
+                        <div class="financial-stat">
+                            <div class="financial-value positive" id="monthlyRevenue">0 ر.س</div>
+                            <div class="financial-label">إيرادات الشهر</div>
+                        </div>
+                        <div class="financial-stat">
+                            <div class="financial-value negative" id="monthlyExpenses">0 ر.س</div>
+                            <div class="financial-label">مصروفات الشهر</div>
+                        </div>
+                        <div class="financial-stat">
+                            <div class="financial-value" id="monthlyProfit">0 ر.س</div>
+                            <div class="financial-label">صافي الربح</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الأحداث القادمة -->
+            <div class="section-title">الأحداث القادمة</div>
+            <div class="upcoming-events fade-in">
+                <div class="events-list">
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-day">١٥</div>
+                            <div class="event-month">فبراير</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title">موعد سداد الرسوم</div>
+                            <div class="event-desc">آخر موعد لسداد رسوم الفصل الدراسي</div>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-day">٢٠</div>
+                            <div class="event-month">فبراير</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title">صرف رواتب المعلمين</div>
+                            <div class="event-desc">موعد صرف رواتب كادر التدريس</div>
+                        </div>
+                    </div>
+
+                    <div class="event-item urgent">
+                        <div class="event-date urgent">
+                            <div class="event-day">٢٥</div>
+                            <div class="event-month">فبراير</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title">تقرير نهاية الشهر</div>
+                            <div class="event-desc">إعداد التقارير المالية الشهرية</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav-premium">
+            <a href="index.html" class="nav-item-premium active">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+            <a href="students.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="nav-label">الطلاب</div>
+            </a>
+            <a href="teachers.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="nav-label">الكادر</div>
+            </a>
+            <a href="financial.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="nav-label">المالية</div>
+            </a>
+            <a href="settings.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-label">الإعدادات</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // تأثيرات الظهور عند التمرير
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+
+        // بيانات التطبيق
+        let appData = {
+            students: JSON.parse(localStorage.getItem('students')) || [],
+            teachers: JSON.parse(localStorage.getItem('teachers')) || [],
+            employees: JSON.parse(localStorage.getItem('employees')) || [],
+            financialData: JSON.parse(localStorage.getItem('financialData')) || {
+                balance: 0,
+                transactions: []
+            }
+        };
+
+        // تحديث الوقت والتاريخ
+        function updateDateTime() {
+            const now = new Date();
+            
+            // تحديث الوقت
+            const timeString = now.toLocaleTimeString('ar-EG', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            document.getElementById('currentTime').textContent = timeString;
+            
+            // تحديث التاريخ
+            const dateString = now.toLocaleDateString('ar-EG', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('currentDate').textContent = dateString;
+            
+            // تحديث اسم الشهر الحالي
+            const monthString = now.toLocaleDateString('ar-EG', {
+                month: 'long',
+                year: 'numeric'
+            });
+            document.getElementById('currentMonth').textContent = monthString;
+        }
+
+        setInterval(updateDateTime, 60000);
+        updateDateTime();
+
+        // تحديث الإحصائيات
+        function updateStatistics() {
+            // تحديث بيانات الطلاب
+            const studentsData = JSON.parse(localStorage.getItem('students')) || [];
+            document.getElementById('totalStudents').textContent = studentsData.length.toLocaleString();
+            
+            // تحديث بيانات المعلمين
+            const teachersData = JSON.parse(localStorage.getItem('teachers')) || [];
+            document.getElementById('totalTeachers').textContent = teachersData.length.toLocaleString();
+            
+            // تحديث بيانات الموظفين
+            const employeesData = JSON.parse(localStorage.getItem('employees')) || [];
+            document.getElementById('totalEmployees').textContent = employeesData.length.toLocaleString();
+            
+            // تحديث البيانات المالية
+            const financialData = JSON.parse(localStorage.getItem('financialData')) || { balance: 0 };
+            document.getElementById('totalBalance').textContent = financialData.balance.toLocaleString() + ' ر.س';
+            
+            // تحديث الإحصائيات المالية الشهرية
+            updateFinancialStats();
+            
+            // تحديث النشاط الأخير
+            updateRecentActivity();
+        }
+
+        // تحديث الإحصائيات المالية
+        function updateFinancialStats() {
+            const financialData = JSON.parse(localStorage.getItem('financialData')) || { transactions: [] };
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            
+            const monthlyRevenue = financialData.transactions
+                .filter(t => t.type === 'revenue' && 
+                            new Date(t.date).getMonth() === currentMonth &&
+                            new Date(t.date).getFullYear() === currentYear)
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const monthlyExpenses = financialData.transactions
+                .filter(t => t.type === 'expense' && 
+                            new Date(t.date).getMonth() === currentMonth &&
+                            new Date(t.date).getFullYear() === currentYear)
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const monthlyProfit = monthlyRevenue - monthlyExpenses;
+            
+            document.getElementById('monthlyRevenue').textContent = monthlyRevenue.toLocaleString() + ' ر.س';
+            document.getElementById('monthlyExpenses').textContent = monthlyExpenses.toLocaleString() + ' ر.س';
+            document.getElementById('monthlyProfit').textContent = monthlyProfit.toLocaleString() + ' ر.س';
+            
+            // تحديث لون صافي الربح
+            const profitElement = document.getElementById('monthlyProfit');
+            profitElement.className = monthlyProfit >= 0 ? 'financial-value positive' : 'financial-value negative';
+        }
+
+        // تحديث النشاط الأخير
+        function updateRecentActivity() {
+            const financialData = JSON.parse(localStorage.getItem('financialData')) || { transactions: [] };
+            const activityList = document.getElementById('activityList');
+            
+            // الحصول على آخر 5 حركات
+            const recentTransactions = financialData.transactions
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+            
+            if (recentTransactions.length === 0) {
+                activityList.innerHTML = `
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <div class="activity-title">لا توجد نشاطات حديثة</div>
+                            <div class="activity-details">سيظهر النشاط هنا عند إضافة حركات مالية جديدة</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            activityList.innerHTML = '';
+            
+            recentTransactions.forEach(transaction => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                
+                let iconClass = '';
+                let icon = '';
+                let title = '';
+                
+                if (transaction.type === 'revenue') {
+                    iconClass = 'revenue';
+                    icon = 'fa-arrow-down';
+                    title = 'إيراد جديد';
+                } else {
+                    iconClass = 'expense';
+                    icon = 'fa-arrow-up';
+                    title = 'مصروف جديد';
+                }
+                
+                // إذا كانت الحركة متعلقة بطالب
+                if (transaction.studentId) {
+                    iconClass = 'student';
+                    icon = 'fa-user-graduate';
+                    title = 'سداد رسوم طالب';
+                }
+                
+                // إذا كانت الحركة متعلقة بمعلم
+                if (transaction.teacherId) {
+                    iconClass = 'teacher';
+                    icon = 'fa-chalkboard-teacher';
+                    title = 'صرف راتب معلم';
+                }
+                
+                const timeAgo = getTimeAgo(transaction.date);
+                
+                activityItem.innerHTML = `
+                    <div class="activity-icon ${iconClass}">
+                        <i class="fas ${icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${title}</div>
+                        <div class="activity-details">${transaction.description}</div>
+                        <div class="activity-time">${timeAgo}</div>
+                    </div>
+                    <div class="activity-amount ${transaction.type === 'revenue' ? 'positive' : 'negative'}">
+                        ${transaction.type === 'revenue' ? '+' : '-'} ${transaction.amount.toLocaleString()} ر.س
+                    </div>
+                `;
+                
+                activityList.appendChild(activityItem);
+            });
+        }
+
+        // حساب الوقت المنقضي
+        function getTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) {
+                return 'الآن';
+            } else if (diffMins < 60) {
+                return `منذ ${diffMins} دقيقة`;
+            } else if (diffHours < 24) {
+                return `منذ ${diffHours} ساعة`;
+            } else if (diffDays < 7) {
+                return `منذ ${diffDays} يوم`;
+            } else {
+                return date.toLocaleDateString('ar-EG');
+            }
+        }
+
+        // تحديث البيانات بانتظام
+        function refreshData() {
+            updateStatistics();
+        }
+
+        // تفعيل شريط التنقل
+        document.querySelectorAll('.nav-item-premium').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item-premium').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // زر عرض كل النشاط
+        document.getElementById('viewAllActivity').addEventListener('click', function() {
+            window.location.href = 'financial.html';
+        });
+
+        // تأثيرات الأمواج الديناميكية
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // تهيئة التطبيق عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            updateStatistics();
+            
+            // تحديث البيانات كل 30 ثانية
+            setInterval(refreshData, 30000);
+        });
+
+        // تحديث تلقائي للبيانات عند العودة للصفحة
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                refreshData();
+            }
+        });
+    </script>
+</body>
+</html>
